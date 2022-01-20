@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.1] - 2022-01-20
+
+- Hotfix for `popAllScreensOnTapOfSelectedTab` of `PersistentTabView.custom`
+  - `PersistentTabView.custom` now also needs the items
+  - You have to call `navBarEssentials.onItemSelected(index)` to trigger navigator stack clearing
+- **Breaking Changes**
+  - `customWidget` now is a builder that receives `navBarEssentials`
+  - To make `popAllScreensOnTapOfSelectedTab` work, specify your `onItemSelected` function of the `CustomWidget` like this:
+
+    ``` dart
+    onItemSelected: (index) {
+        setState(() {
+            navBarEssentials.onItemSelected(index); // This also updates the controller index
+        });
+    }
+    ```
+
 ## [4.1.0] - 2022-01-20
 
 - `PersistentTabView.custom` now supports `popAllScreensOnTapOfSelectedTab`
