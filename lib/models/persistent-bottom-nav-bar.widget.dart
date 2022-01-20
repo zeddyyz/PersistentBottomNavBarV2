@@ -20,7 +20,7 @@ class PersistentBottomNavBar extends StatelessWidget {
   final NavBarDecoration? navBarDecoration;
   final NavBarStyle? navBarStyle;
   final NeumorphicProperties? neumorphicProperties;
-  final Widget? customNavBarWidget;
+  final Widget Function(NavBarEssentials navBarEssentials)? customNavBarWidget;
   final bool? confineToSafeArea;
   final bool? hideNavigationBar;
   final Function(bool, bool)? onAnimationComplete;
@@ -38,17 +38,21 @@ class PersistentBottomNavBar extends StatelessWidget {
                     child: Container(
                       color: this.navBarEssentials!.backgroundColor,
                       height: this.navBarEssentials!.navBarHeight,
-                      child: this.customNavBarWidget,
+                      child: this.customNavBarWidget?.call(this.navBarEssentials!),
                     ),
                   )
                 : Container(
                     color: this.navBarEssentials!.backgroundColor,
                     child: SafeArea(
-                        top: false,
-                        bottom: this.navBarEssentials!.navBarHeight == 0.0 || (this.hideNavigationBar ?? false)
-                            ? false
-                            : confineToSafeArea ?? true,
-                        child: Container(height: this.navBarEssentials!.navBarHeight, child: this.customNavBarWidget)),
+                      top: false,
+                      bottom: this.navBarEssentials!.navBarHeight == 0.0 || (this.hideNavigationBar ?? false)
+                          ? false
+                          : confineToSafeArea ?? true,
+                      child: Container(
+                        height: this.navBarEssentials!.navBarHeight,
+                        child: this.customNavBarWidget?.call(this.navBarEssentials!),
+                      ),
+                    ),
                   )
             : this.navBarStyle == NavBarStyle.style15 || this.navBarStyle == NavBarStyle.style16
                 ? this.margin!.bottom > 0
@@ -145,7 +149,7 @@ class PersistentBottomNavBar extends StatelessWidget {
       NavBarStyle? navBarStyle,
       double? horizontalPadding,
       NeumorphicProperties? neumorphicProperties,
-      Widget? customNavBarWidget,
+      Widget Function(NavBarEssentials)? customNavBarWidget,
       Function(int)? popAllScreensForTheSelectedTab,
       bool? popScreensOnTapOfSelectedTab,
       NavBarDecoration? navBarDecoration,
@@ -175,7 +179,7 @@ class PersistentBottomNavBar extends StatelessWidget {
 
   Widget? getNavBarStyle() {
     if (isCustomWidget!) {
-      return customNavBarWidget;
+      return customNavBarWidget?.call(this.navBarEssentials!);
     } else {
       switch (navBarStyle) {
         case NavBarStyle.style1:

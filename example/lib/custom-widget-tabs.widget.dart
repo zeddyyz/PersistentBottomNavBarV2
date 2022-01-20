@@ -125,6 +125,7 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
       body: PersistentTabView.custom(
         context,
         controller: _controller,
+        items: _navBarsItems(),
         screens: _buildScreens(),
         confineInSafeArea: true,
         itemCount: 5,
@@ -136,9 +137,12 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        customWidget: CustomNavBarWidget(
+        customWidget: (navBarEssentials) => CustomNavBarWidget(
           items: _navBarsItems(),
           onItemSelected: (index) {
+            if (_controller.index == index) {
+              navBarEssentials.onItemSelected(index);
+            }
             setState(() {
               _controller.index = index; // THIS IS CRITICAL!! Don't miss it!
             });

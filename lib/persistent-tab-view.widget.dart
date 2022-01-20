@@ -131,11 +131,12 @@ class PersistentTabView extends PersistentTabViewBase {
   PersistentTabView.custom(
     this.context, {
     Key? key,
+    List<PersistentBottomNavBarItem>? items,
     required this.screens,
     this.controller,
     this.margin = EdgeInsets.zero,
     this.floatingActionButton,
-    required Widget customWidget,
+    required Widget Function(NavBarEssentials) customWidget,
     required int itemCount,
     this.resizeToAvoidBottomInset = false,
     this.bottomScreenMargin,
@@ -153,6 +154,7 @@ class PersistentTabView extends PersistentTabViewBase {
   }) : super(
           key: key,
           context: context,
+          items: items,
           screens: screens,
           controller: controller,
           margin: margin,
@@ -226,8 +228,8 @@ class PersistentTabViewBase extends StatefulWidget {
   ///The margin around the navigation bar.
   final EdgeInsets? margin;
 
-  ///Custom navigation bar widget. To be only used when `navBarStyle` is set to `NavBarStyle.custom`.
-  final Widget? customWidget;
+  ///Custom navigation bar widget builder. To be only used when `navBarStyle` is set to `NavBarStyle.custom`.
+  final Widget Function(NavBarEssentials)? customWidget;
 
   ///If using `custom` navBarStyle, define this instead of the `items` property
   final int? itemCount;
@@ -554,6 +556,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
               popScreensOnTapOfSelectedTab: widget.popAllScreensOnTapOfSelectedTab ?? true,
               onItemSelected: widget.onItemSelected != null
                   ? (int index) {
+                      print("Blassss");
                       if (_controller!.index != _previousIndex) {
                         _previousIndex = _controller!.index;
                       }
@@ -564,6 +567,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                       widget.onItemSelected!(index);
                     }
                   : (int index) {
+                      print("Blassssfhlksajkdös");
                       if (_controller!.index != _previousIndex) {
                         _previousIndex = _controller!.index;
                       }
@@ -622,7 +626,6 @@ class _PersistentTabViewState extends State<PersistentTabView> {
       _contextList =
           List<BuildContext?>.filled((widget.items == null ? widget.itemCount ?? 0 : widget.items!.length), null);
     }
-
     if (widget.handleAndroidBackButtonPress || widget.onWillPop != null) {
       return WillPopScope(
         onWillPop: !widget.handleAndroidBackButtonPress && widget.onWillPop != null
