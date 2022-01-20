@@ -142,7 +142,7 @@ class PersistentTabView extends PersistentTabViewBase {
     this.selectedTabScreenContext,
     this.hideNavigationBarWhenKeyboardShows = true,
     this.backgroundColor = CupertinoColors.white,
-    CutsomWidgetRouteAndNavigatorSettings routeAndNavigatorSettings = const CutsomWidgetRouteAndNavigatorSettings(),
+    CustomWidgetRouteAndNavigatorSettings routeAndNavigatorSettings = const CustomWidgetRouteAndNavigatorSettings(),
     this.confineInSafeArea = true,
     this.onWillPop,
     this.stateManagement = true,
@@ -272,7 +272,7 @@ class PersistentTabViewBase extends StatefulWidget {
   ///Define navigation bar route name and settings here.
   ///
   ///If you want to programmatically pop to initial screen on a specific use this route name when popping.
-  final CutsomWidgetRouteAndNavigatorSettings? routeAndNavigatorSettings;
+  final CustomWidgetRouteAndNavigatorSettings? routeAndNavigatorSettings;
 
   final bool? isCustomWidget;
 
