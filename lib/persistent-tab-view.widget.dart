@@ -1,7 +1,7 @@
 // Author: Bilal Shahid
 // For queries, contact me at bilalscheema@gmail.com
 
-part of persistent_bottom_nav_bar;
+part of persistent_bottom_nav_bar_v2;
 
 ///A highly customizable persistent navigation bar for flutter.
 ///
@@ -99,8 +99,7 @@ class PersistentTabView extends PersistentTabViewBase {
           items: items,
           padding: padding,
           decoration: decoration,
-          hideNavigationBarWhenKeyboardShows:
-              hideNavigationBarWhenKeyboardShows,
+          hideNavigationBarWhenKeyboardShows: hideNavigationBarWhenKeyboardShows,
           itemAnimationProperties: itemAnimationProperties,
           navBarStyle: navBarStyle,
           popActionScreens: popActionScreens,
@@ -120,8 +119,7 @@ class PersistentTabView extends PersistentTabViewBase {
           hideNavigationBar: hideNavigationBar,
           screenTransitionAnimation: screenTransitionAnimation,
         ) {
-    assert(items != null,
-        "Items can only be null in case of custom navigation bar style. Please add the items!");
+    assert(items != null, "Items can only be null in case of custom navigation bar style. Please add the items!");
     assert(assertMidButtonStyles(navBarStyle, items!.length),
         "NavBar styles 15-18 only accept 3 or 5 PersistentBottomNavBarItem items.");
     assert(items!.length == screens.length,
@@ -144,8 +142,7 @@ class PersistentTabView extends PersistentTabViewBase {
     this.selectedTabScreenContext,
     this.hideNavigationBarWhenKeyboardShows = true,
     this.backgroundColor = CupertinoColors.white,
-    CutsomWidgetRouteAndNavigatorSettings routeAndNavigatorSettings =
-        const CutsomWidgetRouteAndNavigatorSettings(),
+    CutsomWidgetRouteAndNavigatorSettings routeAndNavigatorSettings = const CutsomWidgetRouteAndNavigatorSettings(),
     this.confineInSafeArea = true,
     this.onWillPop,
     this.stateManagement = true,
@@ -179,8 +176,7 @@ class PersistentTabView extends PersistentTabViewBase {
     assert(
         routeAndNavigatorSettings.navigatorKeys == null ||
             routeAndNavigatorSettings.navigatorKeys != null &&
-                routeAndNavigatorSettings.navigatorKeys!.length !=
-                    items!.length,
+                routeAndNavigatorSettings.navigatorKeys!.length != items!.length,
         "Number of 'Navigator Keys' must be equal to the number of bottom navigation tabs.");
   }
 }
@@ -336,9 +332,8 @@ class _PersistentTabViewState extends State<PersistentTabView> {
   void initState() {
     super.initState();
 
-    _contextList = List<BuildContext?>.filled(
-        widget.items == null ? widget.itemCount ?? 0 : widget.items!.length,
-        null);
+    _contextList =
+        List<BuildContext?>.filled(widget.items == null ? widget.itemCount ?? 0 : widget.items!.length, null);
 
     if (widget.controller == null) {
       _controller = PersistentTabController(initialIndex: 0);
@@ -372,18 +367,14 @@ class _PersistentTabViewState extends State<PersistentTabView> {
   }
 
   Widget _buildScreen(int index) {
-    RouteAndNavigatorSettings _routeAndNavigatorSettings = widget
-            .isCustomWidget!
+    RouteAndNavigatorSettings _routeAndNavigatorSettings = widget.isCustomWidget!
         ? RouteAndNavigatorSettings(
             defaultTitle: widget.routeAndNavigatorSettings!.defaultTitle,
             initialRoute: widget.routeAndNavigatorSettings!.initialRoute,
-            navigatorKey:
-                widget.routeAndNavigatorSettings!.navigatorKeys == null
-                    ? null
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorKeys![_controller!.index],
-            navigatorObservers:
-                widget.routeAndNavigatorSettings!.navigatorObservers,
+            navigatorKey: widget.routeAndNavigatorSettings!.navigatorKeys == null
+                ? null
+                : widget.routeAndNavigatorSettings!.navigatorKeys![_controller!.index],
+            navigatorObservers: widget.routeAndNavigatorSettings!.navigatorObservers,
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
@@ -408,9 +399,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             ),
           ),
           Positioned(
-            bottom: widget.decoration!.borderRadius != BorderRadius.zero
-                ? 25.0
-                : 10.0,
+            bottom: widget.decoration!.borderRadius != BorderRadius.zero ? 25.0 : 10.0,
             right: 10.0,
             child: widget.floatingActionButton!,
           ),
@@ -436,17 +425,11 @@ class _PersistentTabViewState extends State<PersistentTabView> {
           _navBarHeight == 0
               ? SizedBox.shrink()
               : Positioned(
-                  bottom: (_navBarHeight! -
-                          (widget.bottomScreenMargin ??
-                              _navBarHeight! + widget.margin.top))
-                      .abs(),
+                  bottom: (_navBarHeight! - (widget.bottomScreenMargin ?? _navBarHeight! + widget.margin.top)).abs(),
                   child: GestureDetector(
                     onTap: () {
-                      if (widget.items![(widget.items!.length / 2).floor()]
-                              .onPressed !=
-                          null) {
-                        widget.items![(widget.items!.length / 2).floor()]
-                            .onPressed!(_contextList[_controller!.index]);
+                      if (widget.items![(widget.items!.length / 2).floor()].onPressed != null) {
+                        widget.items![(widget.items!.length / 2).floor()].onPressed!(_contextList[_controller!.index]);
                       } else {
                         _controller!.index = (widget.items!.length / 2).floor();
                       }
@@ -456,20 +439,14 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                         height: 21.0 +
                             min(
                                 widget.navBarHeight!,
-                                max(
-                                        widget.decoration!.borderRadius!
-                                            .topRight.y,
-                                        widget.decoration!.borderRadius!.topLeft
-                                            .y) +
+                                max(widget.decoration!.borderRadius!.topRight.y,
+                                        widget.decoration!.borderRadius!.topLeft.y) +
                                     (widget.decoration?.border != null
-                                        ? widget.decoration!.border!.dimensions
-                                            .vertical
+                                        ? widget.decoration!.border!.dimensions.vertical
                                         : 0.0)),
                         margin: EdgeInsets.only(
                             left: MediaQuery.of(context).size.width / 2 -
-                                (MediaQuery.of(context).size.width / 5.0 -
-                                        30.0) /
-                                    2),
+                                (MediaQuery.of(context).size.width / 5.0 - 30.0) / 2),
                         width: MediaQuery.of(context).size.width / 5.0 - 30.0,
                         decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -503,17 +480,11 @@ class _PersistentTabViewState extends State<PersistentTabView> {
           _navBarHeight == 0
               ? SizedBox.shrink()
               : Positioned(
-                  bottom: (_navBarHeight! -
-                          (widget.bottomScreenMargin ??
-                              _navBarHeight! + widget.margin.top))
-                      .abs(),
+                  bottom: (_navBarHeight! - (widget.bottomScreenMargin ?? _navBarHeight! + widget.margin.top)).abs(),
                   child: GestureDetector(
                     onTap: () {
-                      if (widget.items![(widget.items!.length / 2).floor()]
-                              .onPressed !=
-                          null) {
-                        widget.items![(widget.items!.length / 2).floor()]
-                            .onPressed!(_contextList[_controller!.index]);
+                      if (widget.items![(widget.items!.length / 2).floor()].onPressed != null) {
+                        widget.items![(widget.items!.length / 2).floor()].onPressed!(_contextList[_controller!.index]);
                       } else {
                         _controller!.index = (widget.items!.length / 2).floor();
                       }
@@ -523,20 +494,14 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                         height: 21 +
                             min(
                                 widget.navBarHeight!,
-                                max(
-                                        widget.decoration!.borderRadius!
-                                            .topRight.y,
-                                        widget.decoration!.borderRadius!.topLeft
-                                            .y) +
+                                max(widget.decoration!.borderRadius!.topRight.y,
+                                        widget.decoration!.borderRadius!.topLeft.y) +
                                     (widget.decoration?.border != null
-                                        ? widget.decoration!.border!.dimensions
-                                            .vertical
+                                        ? widget.decoration!.border!.dimensions.vertical
                                         : 0.0)),
                         margin: EdgeInsets.only(
                             left: MediaQuery.of(context).size.width / 2 -
-                                (MediaQuery.of(context).size.width / 5.0 -
-                                        30.0) /
-                                    2),
+                                (MediaQuery.of(context).size.width / 5.0 - 30.0) / 2),
                         width: MediaQuery.of(context).size.width / 5.0 - 30.0,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -566,17 +531,12 @@ class _PersistentTabViewState extends State<PersistentTabView> {
         backgroundColor: Colors.transparent,
         child: PersistentTabScaffold(
           controller: _controller,
-          itemCount: widget.items == null
-              ? widget.itemCount ?? 0
-              : widget.items!.length,
+          itemCount: widget.items == null ? widget.itemCount ?? 0 : widget.items!.length,
           bottomScreenMargin:
-              widget.hideNavigationBar != null && widget.hideNavigationBar!
-                  ? 0.0
-                  : widget.bottomScreenMargin,
+              widget.hideNavigationBar != null && widget.hideNavigationBar! ? 0.0 : widget.bottomScreenMargin,
           stateManagement: widget.stateManagement,
           screenTransitionAnimation: widget.screenTransitionAnimation,
-          hideNavigationBarWhenKeyboardShows:
-              widget.hideNavigationBarWhenKeyboardShows,
+          hideNavigationBarWhenKeyboardShows: widget.hideNavigationBarWhenKeyboardShows,
           resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           animatePadding: _isAnimating! || _isCompleted!,
           tabBar: PersistentBottomNavBar(
@@ -589,15 +549,13 @@ class _PersistentTabViewState extends State<PersistentTabView> {
               items: widget.items,
               backgroundColor: widget.backgroundColor,
               navBarHeight: _navBarHeight,
-              popScreensOnTapOfSelectedTab:
-                  widget.popAllScreensOnTapOfSelectedTab ?? true,
+              popScreensOnTapOfSelectedTab: widget.popAllScreensOnTapOfSelectedTab ?? true,
               onItemSelected: widget.onItemSelected != null
                   ? (int index) {
                       if (_controller!.index != _previousIndex) {
                         _previousIndex = _controller!.index;
                       }
-                      if ((widget.popAllScreensOnTapOfSelectedTab ?? true) &&
-                          _previousIndex == index) {
+                      if ((widget.popAllScreensOnTapOfSelectedTab ?? true) && _previousIndex == index) {
                         popAllScreens();
                       }
                       _controller!.index = index;
@@ -607,8 +565,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                       if (_controller!.index != _previousIndex) {
                         _previousIndex = _controller!.index;
                       }
-                      if ((widget.popAllScreensOnTapOfSelectedTab ?? true) &&
-                          _previousIndex == index) {
+                      if ((widget.popAllScreensOnTapOfSelectedTab ?? true) && _previousIndex == index) {
                         popAllScreens();
                       }
                       _controller!.index = index;
@@ -640,8 +597,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
               top: false,
               right: false,
               left: false,
-              bottom: (widget.items != null &&
-                          widget.items![_controller!.index].opacity < 1.0) ||
+              bottom: (widget.items != null && widget.items![_controller!.index].opacity < 1.0) ||
                       (widget.hideNavigationBar != null && _isCompleted!)
                   ? false
                   : widget.margin.bottom > 0
@@ -661,21 +617,17 @@ class _PersistentTabViewState extends State<PersistentTabView> {
         ? 0.0
         : widget.navBarHeight ?? kBottomNavigationBarHeight;
     if (_contextList.length != (widget.itemCount ?? widget.items!.length)) {
-      _contextList = List<BuildContext?>.filled(
-          (widget.items == null ? widget.itemCount ?? 0 : widget.items!.length),
-          null);
+      _contextList =
+          List<BuildContext?>.filled((widget.items == null ? widget.itemCount ?? 0 : widget.items!.length), null);
     }
 
     if (widget.handleAndroidBackButtonPress || widget.onWillPop != null) {
       return WillPopScope(
-        onWillPop: !widget.handleAndroidBackButtonPress &&
-                widget.onWillPop != null
-            ? widget.onWillPop!(_contextList[_controller!.index])
-                as Future<bool> Function()?
+        onWillPop: !widget.handleAndroidBackButtonPress && widget.onWillPop != null
+            ? widget.onWillPop!(_contextList[_controller!.index]) as Future<bool> Function()?
             : widget.handleAndroidBackButtonPress && widget.onWillPop != null
                 ? () async {
-                    if (_controller!.index == 0 &&
-                        !Navigator.canPop(_contextList.first!)) {
+                    if (_controller!.index == 0 && !Navigator.canPop(_contextList.first!)) {
                       return widget.onWillPop!(_contextList.first);
                     } else {
                       if (Navigator.canPop(_contextList[_controller!.index]!)) {
@@ -690,8 +642,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                     }
                   }
                 : () async {
-                    if (_controller!.index == 0 &&
-                        !Navigator.canPop(_contextList.first!)) {
+                    if (_controller!.index == 0 && !Navigator.canPop(_contextList.first!)) {
                       return true;
                     } else {
                       if (Navigator.canPop(_contextList[_controller!.index]!)) {
@@ -714,12 +665,9 @@ class _PersistentTabViewState extends State<PersistentTabView> {
 
   void popAllScreens() {
     if (widget.popAllScreensOnTapOfSelectedTab!) {
-      if (widget.items![_controller!.index]
-                  .onSelectedTabPressWhenNoScreensPushed !=
-              null &&
+      if (widget.items![_controller!.index].onSelectedTabPressWhenNoScreensPushed != null &&
           !Navigator.of(_contextList[_controller!.index]!).canPop()) {
-        widget.items![_controller!.index]
-            .onSelectedTabPressWhenNoScreensPushed!();
+        widget.items![_controller!.index].onSelectedTabPressWhenNoScreensPushed!();
       }
 
       if (widget.popActionScreens == PopActionScreensType.once) {
@@ -731,10 +679,8 @@ class _PersistentTabViewState extends State<PersistentTabView> {
         Navigator.popUntil(
             _contextList[_controller!.index]!,
             ModalRoute.withName(widget.isCustomWidget!
-                ? (widget.routeAndNavigatorSettings?.initialRoute ??
-                    '/9f580fc5-c252-45d0-af25-9429992db112')
-                : widget.items![_controller!.index].routeAndNavigatorSettings
-                        .initialRoute ??
+                ? (widget.routeAndNavigatorSettings?.initialRoute ?? '/9f580fc5-c252-45d0-af25-9429992db112')
+                : widget.items![_controller!.index].routeAndNavigatorSettings.initialRoute ??
                     '/9f580fc5-c252-45d0-af25-9429992db112'));
       }
     }

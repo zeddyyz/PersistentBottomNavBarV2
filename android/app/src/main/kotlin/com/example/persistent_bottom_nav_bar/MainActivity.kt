@@ -1,4 +1,4 @@
-package com.example.persistent_bottom_nav_bar
+package com.example.persistent_bottom_nav_bar_v2
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

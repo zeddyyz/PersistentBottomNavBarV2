@@ -1,4 +1,4 @@
-part of persistent_bottom_nav_bar;
+part of persistent_bottom_nav_bar_v2;
 
 class NavBarEssentials {
   final int? selectedIndex;
@@ -47,10 +47,8 @@ class NavBarEssentials {
       onItemSelected: onItemSelected ?? this.onItemSelected,
       navBarHeight: navBarHeight ?? this.navBarHeight,
       padding: padding ?? this.padding,
-      popScreensOnTapOfSelectedTab:
-          popScreensOnTapOfSelectedTab ?? this.popScreensOnTapOfSelectedTab,
-      itemAnimationProperties:
-          itemAnimationProperties ?? this.itemAnimationProperties,
+      popScreensOnTapOfSelectedTab: popScreensOnTapOfSelectedTab ?? this.popScreensOnTapOfSelectedTab,
+      itemAnimationProperties: itemAnimationProperties ?? this.itemAnimationProperties,
     );
   }
 }

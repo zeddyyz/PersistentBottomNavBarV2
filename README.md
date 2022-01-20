@@ -1,12 +1,12 @@
-# Persistent Bottom Navigation Bar
+# Persistent Bottom Navigation Bar Version 2
 
-[![pub package version](https://img.shields.io/pub/v/persistent_bottom_nav_bar)](https://pub.dev/packages/persistent_bottom_nav_bar)
-[![license](https://img.shields.io/github/license/BilalShahid13/PersistentBottomNavBar)](https://github.com/BilalShahid13/PersistentBottomNavBar/blob/master/LICENSE)
-[![github stars](https://img.shields.io/github/stars/BilalShahid13/PersistentBottomNavBar?style=social)](https://github.com/BilalShahid13/PersistentBottomNavBar/stargazers)
+[![pub package version](https://img.shields.io/pub/v/persistent_bottom_nav_bar_v2)](https://pub.dev/packages/persistent_bottom_nav_bar_v2)
+[![license](https://img.shields.io/github/license/jb3rndt/PersistentBottomNavBarV2)](https://github.com/jb3rndt/PersistentBottomNavBarV2/blob/master/LICENSE)
+[![github stars](https://img.shields.io/github/stars/jb3rndt/PersistentBottomNavBarV2?style=social)](https://github.com/jb3rndt/PersistentBottomNavBarV2/stargazers)
 
 A persistent/static bottom navigation bar for Flutter.
 
-NOTE: Those migrating from **pre 2.0.0** version should check the latest Readme and instructions as there are many breaking changes introduced in the 2.0.0 update
+NOTE: This package is a continuation of [persistent_bottom_nav_bar](https://pub.dev/packages/persistent_bottom_nav_bar) which currently is not continued.
 
 ![Persistent Behavior](gifs/persistent.gif)
 
@@ -55,13 +55,13 @@ In your flutter project add the dependency:
 
 ```yaml
 dependencies:
-  persistent_bottom_nav_bar: any
+  persistent_bottom_nav_bar_v2: any
 ```
 
 Import the package:
 
 ```dart
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 ```
 
 Persistent bottom navigation bar uses `PersistentTabController` as its controller. Here is how to declare it:
@@ -351,4 +351,4 @@ If you want to have your own style for the navigation bar, follow these steps:
 
 3. Done! As we can see, some of the other properties like `iconSize`, `items` are not required here so you can skip those properties. To control the **bottom padding** of the screen, use `bottomScreenPadding`. If you give too much `bottomScreenPadding` but less height in the custom widget or vice versa, layout issues might appear.
 
-For better understanding, refer to the [example project](https://github.com/BilalShahid13/PersistentBottomNavBar/tree/master/example) in the official git repo.
+For better understanding, refer to the [example project](https://github.com/jb3rndt/PersistentBottomNavBarV2/tree/master/example) in the official git repo.

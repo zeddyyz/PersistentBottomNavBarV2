@@ -1,4 +1,4 @@
-part of persistent_bottom_nav_bar;
+part of persistent_bottom_nav_bar_v2;
 
 class BottomNavStyle8 extends StatefulWidget {
   final NavBarEssentials? navBarEssentials;
@@ -12,8 +12,7 @@ class BottomNavStyle8 extends StatefulWidget {
   _BottomNavStyle8State createState() => _BottomNavStyle8State();
 }
 
-class _BottomNavStyle8State extends State<BottomNavStyle8>
-    with TickerProviderStateMixin {
+class _BottomNavStyle8State extends State<BottomNavStyle8> with TickerProviderStateMixin {
   late List<AnimationController> _animationControllerList;
   late List<Animation<double>> _animationList;
 
@@ -30,14 +29,10 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
 
     for (int i = 0; i < widget.navBarEssentials!.items!.length; ++i) {
       _animationControllerList.add(AnimationController(
-          duration:
-              widget.navBarEssentials!.itemAnimationProperties?.duration ??
-                  Duration(milliseconds: 400),
+          duration: widget.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 400),
           vsync: this));
       _animationList.add(Tween(begin: 0.95, end: 1.2)
-          .chain(CurveTween(
-              curve: widget.navBarEssentials!.itemAnimationProperties?.curve ??
-                  Curves.ease))
+          .chain(CurveTween(curve: widget.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease))
           .animate(_animationControllerList[i]));
     }
 
@@ -46,8 +41,7 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
     });
   }
 
-  Widget _buildItem(PersistentBottomNavBarItem item, bool isSelected,
-      double? height, int itemIndex) {
+  Widget _buildItem(PersistentBottomNavBarItem item, bool isSelected, double? height, int itemIndex) {
     return widget.navBarEssentials!.navBarHeight == 0
         ? SizedBox.shrink()
         : Container(
@@ -63,14 +57,11 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
                     data: IconThemeData(
                         size: item.iconSize,
                         color: isSelected
-                            ? (item.activeColorSecondary == null
-                                ? item.activeColorPrimary
-                                : item.activeColorSecondary)
+                            ? (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary)
                             : item.inactiveColorPrimary == null
                                 ? item.activeColorPrimary
                                 : item.inactiveColorPrimary),
-                    child:
-                        isSelected ? item.icon : item.inactiveIcon ?? item.icon,
+                    child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
                   ),
                 ),
                 item.title == null
@@ -89,15 +80,13 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
                                   style: item.textStyle != null
                                       ? (item.textStyle!.apply(
                                           color: isSelected
-                                              ? (item.activeColorSecondary ==
-                                                      null
+                                              ? (item.activeColorSecondary == null
                                                   ? item.activeColorPrimary
                                                   : item.activeColorSecondary)
                                               : item.inactiveColorPrimary))
                                       : TextStyle(
                                           color: isSelected
-                                              ? (item.activeColorSecondary ==
-                                                      null
+                                              ? (item.activeColorSecondary == null
                                                   ? item.activeColorPrimary
                                                   : item.activeColorSecondary)
                                               : item.inactiveColorPrimary,
@@ -124,23 +113,16 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.navBarEssentials!.items!.length !=
-        _animationControllerList.length) {
-      _animationControllerList =
-          List<AnimationController>.empty(growable: true);
+    if (widget.navBarEssentials!.items!.length != _animationControllerList.length) {
+      _animationControllerList = List<AnimationController>.empty(growable: true);
       _animationList = List<Animation<double>>.empty(growable: true);
 
       for (int i = 0; i < widget.navBarEssentials!.items!.length; ++i) {
         _animationControllerList.add(AnimationController(
-            duration:
-                widget.navBarEssentials!.itemAnimationProperties?.duration ??
-                    Duration(milliseconds: 400),
+            duration: widget.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 400),
             vsync: this));
         _animationList.add(Tween(begin: 0.95, end: 1.18)
-            .chain(CurveTween(
-                curve:
-                    widget.navBarEssentials!.itemAnimationProperties?.curve ??
-                        Curves.ease))
+            .chain(CurveTween(curve: widget.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease))
             .animate(_animationControllerList[i]));
       }
     }
@@ -154,14 +136,10 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
       width: double.infinity,
       height: widget.navBarEssentials!.navBarHeight,
       padding: EdgeInsets.only(
-          left: widget.navBarEssentials!.padding?.left ??
-              MediaQuery.of(context).size.width * 0.04,
-          right: widget.navBarEssentials!.padding?.right ??
-              MediaQuery.of(context).size.width * 0.04,
-          top: widget.navBarEssentials!.padding?.top ??
-              widget.navBarEssentials!.navBarHeight! * 0.15,
-          bottom: widget.navBarEssentials!.padding?.bottom ??
-              widget.navBarEssentials!.navBarHeight! * 0.12),
+          left: widget.navBarEssentials!.padding?.left ?? MediaQuery.of(context).size.width * 0.04,
+          right: widget.navBarEssentials!.padding?.right ?? MediaQuery.of(context).size.width * 0.04,
+          top: widget.navBarEssentials!.padding?.top ?? widget.navBarEssentials!.navBarHeight! * 0.15,
+          bottom: widget.navBarEssentials!.padding?.bottom ?? widget.navBarEssentials!.navBarHeight! * 0.12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -171,8 +149,8 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
             child: GestureDetector(
               onTap: () {
                 if (widget.navBarEssentials!.items![index].onPressed != null) {
-                  widget.navBarEssentials!.items![index].onPressed!(
-                      widget.navBarEssentials!.selectedScreenBuildContext);
+                  widget
+                      .navBarEssentials!.items![index].onPressed!(widget.navBarEssentials!.selectedScreenBuildContext);
                 } else {
                   if (index != _selectedIndex) {
                     _lastSelectedIndex = _selectedIndex;
@@ -185,11 +163,8 @@ class _BottomNavStyle8State extends State<BottomNavStyle8>
               },
               child: Container(
                 color: Colors.transparent,
-                child: _buildItem(
-                    item,
-                    widget.navBarEssentials!.selectedIndex == index,
-                    widget.navBarEssentials!.navBarHeight,
-                    index),
+                child: _buildItem(item, widget.navBarEssentials!.selectedIndex == index,
+                    widget.navBarEssentials!.navBarHeight, index),
               ),
             ),
           );

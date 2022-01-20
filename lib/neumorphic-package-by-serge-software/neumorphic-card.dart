@@ -1,6 +1,6 @@
 /// Based on the code by Ivan Cherepanov
 /// https://medium.com/flutter-community/neumorphic-designs-in-flutter-eab9a4de2059
-part of persistent_bottom_nav_bar;
+part of persistent_bottom_nav_bar_v2;
 
 enum CurveType {
   concave,
@@ -124,11 +124,7 @@ class NeumorphicContainer extends StatelessWidget {
   }
 
   Color _getAdjustColor(Color baseColor, double amount) {
-    Map<String, int> colors = {
-      'r': baseColor.red,
-      'g': baseColor.green,
-      'b': baseColor.blue
-    };
+    Map<String, int> colors = {'r': baseColor.red, 'g': baseColor.green, 'b': baseColor.blue};
 
     colors = colors.map((key, value) {
       if (value + amount < 0) {
@@ -151,8 +147,7 @@ class NeumorphicContainer extends StatelessWidget {
         ],
       );
 
-  Gradient _getConcaveGradients(Color baseColor, double depth) =>
-      LinearGradient(
+  Gradient _getConcaveGradients(Color baseColor, double depth) => LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [

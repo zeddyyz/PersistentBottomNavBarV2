@@ -1,62 +1,48 @@
-part of persistent_bottom_nav_bar;
+part of persistent_bottom_nav_bar_v2;
 
-enum PageTransitionAnimation {
-  cupertino,
-  slideRight,
-  scale,
-  rotate,
-  sizeUp,
-  fade,
-  scaleRotate,
-  slideUp
-}
+enum PageTransitionAnimation { cupertino, slideRight, scale, rotate, sizeUp, fade, scaleRotate, slideUp }
 
-Widget _slideRightRoute(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget? child) =>
+Widget _slideRightRoute(
+        BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) =>
     SlideTransition(
-        position: Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
-            .animate(animation),
-        child: child);
+        position: Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero).animate(animation), child: child);
 
-Widget _slideUp(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget? child) =>
+Widget _slideUp(
+        BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) =>
     SlideTransition(
-        position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
-            .animate(animation),
-        child: child);
+        position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(animation), child: child);
 
-Widget _scaleRoute(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget? child) =>
+Widget _scaleRoute(
+        BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) =>
     ScaleTransition(
-        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn)),
+        scale: Tween<double>(begin: 0.0, end: 1.0)
+            .animate(CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn)),
         child: child);
 
-Widget _rotationRoute(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget? child) =>
+Widget _rotationRoute(
+        BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) =>
     RotationTransition(
-        turns: Tween<double>(begin: 0.0, end: 1.0)
-            .animate(CurvedAnimation(parent: animation, curve: Curves.linear)),
+        turns: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: animation, curve: Curves.linear)),
         child: child);
 
-Widget _sizeRoute(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget? child) =>
+Widget _sizeRoute(
+        BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) =>
     Align(
       child: SizeTransition(sizeFactor: animation, child: child),
     );
 
-Widget _fadeRoute(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget? child) =>
+Widget _fadeRoute(
+        BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) =>
     FadeTransition(opacity: animation, child: child);
 
-Widget _scaleRotate(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget? child) =>
+Widget _scaleRotate(
+        BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) =>
     ScaleTransition(
-        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn)),
+        scale: Tween<double>(begin: 0.0, end: 1.0)
+            .animate(CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn)),
         child: RotationTransition(
-            turns: Tween<double>(begin: 0.0, end: 1.0).animate(
-                CurvedAnimation(parent: animation, curve: Curves.linear)),
+            turns:
+                Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: animation, curve: Curves.linear)),
             child: child));
 
 class _AnimatedPageRoute extends PageRouteBuilder {
@@ -64,26 +50,17 @@ class _AnimatedPageRoute extends PageRouteBuilder {
   final Widget? exitPage;
   final PageTransitionAnimation? transitionAnimation;
   final RouteSettings? routeSettings;
-  _AnimatedPageRoute(
-      {this.exitPage,
-      this.enterPage,
-      this.transitionAnimation,
-      this.routeSettings})
+  _AnimatedPageRoute({this.exitPage, this.enterPage, this.transitionAnimation, this.routeSettings})
       : super(
           settings: routeSettings,
-          pageBuilder: (BuildContext context, Animation<double> animation,
-                  Animation<double> secondaryAnimation) =>
+          pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) =>
               enterPage!,
-          transitionsBuilder: (BuildContext context,
-                  Animation<double> animation,
-                  Animation<double> secondaryAnimation,
-                  Widget child) =>
-              Stack(
+          transitionsBuilder:
+              (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) =>
+                  Stack(
             children: <Widget>[
-              _getAnimation(context, animation, secondaryAnimation, exitPage,
-                  transitionAnimation!),
-              _getAnimation(context, animation, secondaryAnimation, enterPage,
-                  transitionAnimation)
+              _getAnimation(context, animation, secondaryAnimation, exitPage, transitionAnimation!),
+              _getAnimation(context, animation, secondaryAnimation, enterPage, transitionAnimation)
             ],
           ),
         );
@@ -96,15 +73,11 @@ class _SinglePageRoute extends PageRouteBuilder {
   _SinglePageRoute({this.page, this.transitionAnimation, this.routeSettings})
       : super(
             settings: routeSettings,
-            pageBuilder: (BuildContext context, Animation<double> animation,
-                    Animation<double> secondaryAnimation) =>
+            pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) =>
                 page!,
-            transitionsBuilder: (BuildContext context,
-                    Animation<double> animation,
-                    Animation<double> secondaryAnimation,
-                    Widget child) =>
-                _getAnimation(context, animation, secondaryAnimation, child,
-                    transitionAnimation!));
+            transitionsBuilder: (BuildContext context, Animation<double> animation,
+                    Animation<double> secondaryAnimation, Widget child) =>
+                _getAnimation(context, animation, secondaryAnimation, child, transitionAnimation!));
 }
 
 Widget _getAnimation(
@@ -141,15 +114,10 @@ dynamic getPageRoute(PageTransitionAnimation transitionAnimation,
     case PageTransitionAnimation.cupertino:
       return settings == null
           ? CupertinoPageRoute(builder: (BuildContext context) => enterPage!)
-          : CupertinoPageRoute(
-              settings: settings,
-              builder: (BuildContext context) => enterPage!);
+          : CupertinoPageRoute(settings: settings, builder: (BuildContext context) => enterPage!);
     default:
       return exitPage == null
-          ? _SinglePageRoute(
-              page: enterPage,
-              transitionAnimation: transitionAnimation,
-              routeSettings: settings)
+          ? _SinglePageRoute(page: enterPage, transitionAnimation: transitionAnimation, routeSettings: settings)
           : _AnimatedPageRoute(
               enterPage: enterPage,
               exitPage: exitPage,

@@ -1,4 +1,4 @@
-part of persistent_bottom_nav_bar;
+part of persistent_bottom_nav_bar_v2;
 
 BoxDecoration getNavBarDecoration({
   bool showElevation = true,
@@ -26,8 +26,7 @@ BoxDecoration getNavBarDecoration({
 }
 
 bool isColorOpaque(BuildContext context, Color? color) {
-  final Color backgroundColor =
-      color ?? CupertinoTheme.of(context).barBackgroundColor;
+  final Color backgroundColor = color ?? CupertinoTheme.of(context).barBackgroundColor;
   return CupertinoDynamicColor.resolve(backgroundColor, context).alpha == 0xFF;
 }
 
@@ -40,8 +39,7 @@ bool opaque(List<PersistentBottomNavBarItem> items, int? selectedIndex) {
   return true;
 }
 
-double getTranslucencyAmount(
-    List<PersistentBottomNavBarItem> items, int? selectedIndex) {
+double getTranslucencyAmount(List<PersistentBottomNavBarItem> items, int? selectedIndex) {
   for (int i = 0; i < items.length; ++i) {
     if (items[i].opacity < 1.0 && i == selectedIndex) {
       return items[i].opacity;
@@ -50,8 +48,8 @@ double getTranslucencyAmount(
   return 1.0;
 }
 
-Color getBackgroundColor(BuildContext context,
-    List<PersistentBottomNavBarItem>? items, Color? color, int? selectedIndex) {
+Color getBackgroundColor(
+    BuildContext context, List<PersistentBottomNavBarItem>? items, Color? color, int? selectedIndex) {
   if (color == null) {
     return Colors.white;
   } else if (!opaque(items!, selectedIndex) && isColorOpaque(context, color)) {

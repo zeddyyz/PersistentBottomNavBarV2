@@ -1,4 +1,4 @@
-part of persistent_bottom_nav_bar;
+part of persistent_bottom_nav_bar_v2;
 
 class ScreenTransitionAnimation {
   final bool animateTabTransition;
