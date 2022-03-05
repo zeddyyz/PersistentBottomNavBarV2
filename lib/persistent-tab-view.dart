@@ -13,7 +13,7 @@ part 'models/nav-bar-essentials.model.dart';
 part 'models/nav-bar-padding.model.dart';
 part 'models/neumorphic-properties.widget.dart';
 part 'models/page-route-transitions.model.dart';
-part 'models/persisten-bottom-nav-item.widget.dart';
+part 'models/persistent-bottom-nav-item.widget.dart';
 part 'models/persistent-bottom-nav-bar-styles.widget.dart';
 part 'models/persistent-bottom-nav-bar.widget.dart';
 //Models
