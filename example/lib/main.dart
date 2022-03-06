@@ -5,18 +5,15 @@ import 'custom-widget-tabs.widget.dart';
 import 'modal-screen.dart';
 import 'screens.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(PersistenBottomNavBarDemo());
 
 BuildContext testContext;
 
-class MyApp extends StatelessWidget {
+class PersistenBottomNavBarDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Persistent Bottom Navigation Bar example project',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Persistent Bottom Navigation Bar Demo',
       home: MainMenu(),
       initialRoute: '/',
       routes: {
@@ -41,7 +38,7 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sample Project"),
+        title: Text("Navigation Bar Demo"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -51,9 +48,7 @@ class _MainMenuState extends State<MainMenu> {
               child: Text("Custom widget example"),
               onPressed: () => pushNewScreen(
                 context,
-                screen: CustomWidgetExample(
-                  menuScreenContext: context,
-                ),
+                screen: CustomWidgetExample(),
               ),
             ),
           ),
@@ -63,9 +58,7 @@ class _MainMenuState extends State<MainMenu> {
               child: Text("Built-in styles example"),
               onPressed: () => pushNewScreen(
                 context,
-                screen: ProvidedStylesExample(
-                  menuScreenContext: context,
-                ),
+                screen: ProvidedStylesExample(),
               ),
             ),
           ),
@@ -78,8 +71,7 @@ class _MainMenuState extends State<MainMenu> {
 // ----------------------------------------- Provided Style ----------------------------------------- //
 
 class ProvidedStylesExample extends StatefulWidget {
-  final BuildContext menuScreenContext;
-  ProvidedStylesExample({Key key, this.menuScreenContext}) : super(key: key);
+  ProvidedStylesExample({Key key}) : super(key: key);
 
   @override
   _ProvidedStylesExampleState createState() => _ProvidedStylesExampleState();
@@ -99,7 +91,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
   List<Widget> _buildScreens() {
     return [
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -108,7 +99,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -117,7 +107,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -126,7 +115,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -135,7 +123,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -358,8 +345,8 @@ class CustomNavBarWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: items.map((item) {
             int index = items.indexOf(item);
-            return Flexible(
-              child: GestureDetector(
+            return Expanded(
+              child: InkWell(
                 onTap: () {
                   this.onItemSelected(index);
                 },

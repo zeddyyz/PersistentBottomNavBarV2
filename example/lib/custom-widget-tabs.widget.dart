@@ -5,8 +5,7 @@ import 'main.dart';
 import 'screens.dart';
 
 class CustomWidgetExample extends StatefulWidget {
-  final BuildContext menuScreenContext;
-  CustomWidgetExample({Key key, this.menuScreenContext}) : super(key: key);
+  CustomWidgetExample({Key key}) : super(key: key);
 
   @override
   _CustomWidgetExampleState createState() => _CustomWidgetExampleState();
@@ -26,7 +25,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
   List<Widget> _buildScreens() {
     return [
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -35,7 +33,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -44,7 +41,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -53,7 +49,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -62,7 +57,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
