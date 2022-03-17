@@ -4,15 +4,14 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'modal-screen.dart';
 
 class MainScreen extends StatelessWidget {
-  final BuildContext menuScreenContext;
   final Function onScreenHideButtonPressed;
   final bool hideStatus;
-  const MainScreen(
-      {Key key,
-      this.menuScreenContext,
-      this.onScreenHideButtonPressed,
-      this.hideStatus = false})
-      : super(key: key);
+
+  const MainScreen({
+    Key key,
+    this.onScreenHideButtonPressed,
+    this.hideStatus = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +129,7 @@ class MainScreen extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(this.menuScreenContext).pop();
+                    Navigator.of(context, rootNavigator: true).pop();
                   },
                   child: Text(
                     "<- Main Menu",
