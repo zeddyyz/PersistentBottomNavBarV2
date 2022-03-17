@@ -42,6 +42,7 @@ class PersistentTabView extends PersistentTabViewBase {
   ///Bottom margin of the screen.
   final double? bottomScreenMargin;
 
+  /// Move up the screen when keyboard appears. Defaults to `true`.
   final bool resizeToAvoidBottomInset;
 
   ///Preserves the state of each tab's screen. `true` by default.
@@ -76,7 +77,7 @@ class PersistentTabView extends PersistentTabViewBase {
       this.floatingActionButton,
       NavBarPadding padding = const NavBarPadding.all(null),
       NavBarDecoration decoration = const NavBarDecoration(),
-      this.resizeToAvoidBottomInset = false,
+      this.resizeToAvoidBottomInset = true,
       this.bottomScreenMargin,
       this.selectedTabScreenContext,
       this.hideNavigationBarWhenKeyboardShows = true,
@@ -138,7 +139,7 @@ class PersistentTabView extends PersistentTabViewBase {
     this.floatingActionButton,
     required Widget Function(NavBarEssentials) customWidget,
     required int itemCount,
-    this.resizeToAvoidBottomInset = false,
+    this.resizeToAvoidBottomInset = true,
     this.bottomScreenMargin,
     this.selectedTabScreenContext,
     this.hideNavigationBarWhenKeyboardShows = true,
@@ -158,6 +159,7 @@ class PersistentTabView extends PersistentTabViewBase {
           screens: screens,
           controller: controller,
           margin: margin,
+          hideNavigationBarWhenKeyboardShows: hideNavigationBarWhenKeyboardShows,
           routeAndNavigatorSettings: routeAndNavigatorSettings,
           backgroundColor: backgroundColor,
           floatingActionButton: floatingActionButton,
@@ -542,7 +544,6 @@ class _PersistentTabViewState extends State<PersistentTabView> {
               widget.hideNavigationBar != null && widget.hideNavigationBar! ? 0.0 : widget.bottomScreenMargin,
           stateManagement: widget.stateManagement,
           screenTransitionAnimation: widget.screenTransitionAnimation,
-          hideNavigationBarWhenKeyboardShows: widget.hideNavigationBarWhenKeyboardShows,
           resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           animatePadding: _isAnimating! || _isCompleted!,
           tabBar: PersistentBottomNavBar(
@@ -617,9 +618,8 @@ class _PersistentTabViewState extends State<PersistentTabView> {
 
   @override
   Widget build(BuildContext context) {
-    _navBarHeight = (widget.resizeToAvoidBottomInset &&
-            MediaQuery.of(widget.context).viewInsets.bottom > 0 &&
-            widget.hideNavigationBarWhenKeyboardShows)
+    bool isKeyboardUp = MediaQuery.of(widget.context).viewInsets.bottom > 0;
+    _navBarHeight = (isKeyboardUp && widget.hideNavigationBarWhenKeyboardShows)
         ? 0.0
         : widget.navBarHeight ?? kBottomNavigationBarHeight;
     if (_contextList.length != (widget.itemCount ?? widget.items!.length)) {

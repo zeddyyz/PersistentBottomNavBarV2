@@ -125,8 +125,8 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
       body: PersistentTabView.custom(
         context,
         controller: _controller,
-        items: _navBarsItems(),
         screens: _buildScreens(),
+        items: _navBarsItems(),
         confineInSafeArea: true,
         itemCount: 5,
         handleAndroidBackButtonPress: true,

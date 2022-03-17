@@ -238,9 +238,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         handleAndroidBackButtonPress: true,
         resizeToAvoidBottomInset: true,
         stateManagement: true,
-        navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
-            ? 0.0
-            : kBottomNavigationBarHeight,
+        navBarHeight: kBottomNavigationBarHeight,
         hideNavigationBarWhenKeyboardShows: true,
         margin: EdgeInsets.all(0.0),
         popActionScreens: PopActionScreensType.all,

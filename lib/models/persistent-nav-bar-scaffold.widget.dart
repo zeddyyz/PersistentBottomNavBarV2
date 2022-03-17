@@ -47,7 +47,6 @@ class PersistentTabScaffold extends StatefulWidget {
     this.bottomScreenMargin,
     this.stateManagement,
     this.screenTransitionAnimation,
-    this.hideNavigationBarWhenKeyboardShows,
     this.itemCount,
     this.animatePadding = false,
   })  : assert(
@@ -73,8 +72,6 @@ class PersistentTabScaffold extends StatefulWidget {
   final bool? stateManagement;
 
   final ScreenTransitionAnimation? screenTransitionAnimation;
-
-  final bool? hideNavigationBarWhenKeyboardShows;
 
   final bool animatePadding;
 
