@@ -447,8 +447,8 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                         height: 21.0 +
                             min(
                                 widget.navBarHeight!,
-                                max(widget.decoration!.borderRadius!.topRight.y,
-                                        widget.decoration!.borderRadius!.topLeft.y) +
+                                max(widget.decoration!.borderRadius.topRight.y,
+                                        widget.decoration!.borderRadius.topLeft.y) +
                                     (widget.decoration?.border != null
                                         ? widget.decoration!.border!.dimensions.vertical
                                         : 0.0)),
@@ -502,8 +502,8 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                         height: 21 +
                             min(
                                 widget.navBarHeight!,
-                                max(widget.decoration!.borderRadius!.topRight.y,
-                                        widget.decoration!.borderRadius!.topLeft.y) +
+                                max(widget.decoration!.borderRadius.topRight.y,
+                                        widget.decoration!.borderRadius.topLeft.y) +
                                     (widget.decoration?.border != null
                                         ? widget.decoration!.border!.dimensions.vertical
                                         : 0.0)),

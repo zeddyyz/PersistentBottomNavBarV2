@@ -172,7 +172,7 @@ class BottomNavStyle15 extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           ClipRRect(
-            borderRadius: this.navBarDecoration!.borderRadius ?? BorderRadius.zero,
+            borderRadius: this.navBarDecoration!.borderRadius,
             child: BackdropFilter(
               filter: this.navBarEssentials!.items![this.navBarEssentials!.selectedIndex!].filter ??
                   ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
