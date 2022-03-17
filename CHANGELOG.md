@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `PersistentTabView.custom` passes `hideNavigationBarWhenKeyboardShows` to `super`
 - **Breaking Changes**
   - `resizeToAvoidBottomInset` defaults to `true` as per docs
+- Adding interactive example
 
 ## [4.1.3] - 2022-03-05
 

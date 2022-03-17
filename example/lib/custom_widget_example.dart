@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
-import 'main.dart';
 import 'screens.dart';
 
 class CustomWidgetExample extends StatefulWidget {
-  final BuildContext menuScreenContext;
-  CustomWidgetExample({Key key, this.menuScreenContext}) : super(key: key);
+  CustomWidgetExample({Key key}) : super(key: key);
 
   @override
   _CustomWidgetExampleState createState() => _CustomWidgetExampleState();
@@ -26,7 +24,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
   List<Widget> _buildScreens() {
     return [
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -35,7 +32,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -44,7 +40,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -53,7 +48,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -62,7 +56,6 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
         },
       ),
       MainScreen(
-        menuScreenContext: widget.menuScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -141,10 +134,96 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
           items: _navBarsItems(),
           onItemSelected: (index) {
             setState(() {
-              navBarEssentials.onItemSelected(index); // THIS IS CRITICAL!! Don't miss it!
+              navBarEssentials
+                  .onItemSelected(index); // THIS IS CRITICAL!! Don't miss it!
             });
           },
           selectedIndex: _controller.index,
+        ),
+      ),
+    );
+  }
+}
+
+class CustomNavBarWidget extends StatelessWidget {
+  final int selectedIndex;
+  final List<PersistentBottomNavBarItem> items;
+  final ValueChanged<int> onItemSelected;
+
+  CustomNavBarWidget({
+    Key key,
+    this.selectedIndex,
+    @required this.items,
+    this.onItemSelected,
+  });
+
+  Widget _buildItem(PersistentBottomNavBarItem item, bool isSelected) {
+    return Container(
+      alignment: Alignment.center,
+      height: kBottomNavigationBarHeight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Flexible(
+            child: IconTheme(
+              data: IconThemeData(
+                  size: 26.0,
+                  color: isSelected
+                      ? (item.activeColorSecondary == null
+                          ? item.activeColorPrimary
+                          : item.activeColorSecondary)
+                      : item.inactiveColorPrimary == null
+                          ? item.activeColorPrimary
+                          : item.inactiveColorPrimary),
+              child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Material(
+              type: MaterialType.transparency,
+              child: FittedBox(
+                child: Text(
+                  item.title,
+                  style: TextStyle(
+                      color: isSelected
+                          ? (item.activeColorSecondary == null
+                              ? item.activeColorPrimary
+                              : item.activeColorSecondary)
+                          : item.inactiveColorPrimary,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.0),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Container(
+        width: double.infinity,
+        height: kBottomNavigationBarHeight,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: items.map((item) {
+            int index = items.indexOf(item);
+            return Expanded(
+              child: InkWell(
+                onTap: () {
+                  this.onItemSelected(index);
+                },
+                child: _buildItem(item, selectedIndex == index),
+              ),
+            );
+          }).toList(),
         ),
       ),
     );
