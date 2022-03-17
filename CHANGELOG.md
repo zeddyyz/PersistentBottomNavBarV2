@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.4] - 2022-03-17
+
+- `hideNavigationBarWhenKeyboardShows` no longer depends on `resizeToAvoidBottomInset` to work properly
+- `PersistentTabView.custom` passes `hideNavigationBarWhenKeyboardShows` to `super`
+- **Breaking Changes**
+  - `resizeToAvoidBottomInset` defaults to `true` as per docs
+
 ## [4.1.3] - 2022-03-05
 
 - Respect background color config in navbar
