@@ -4,14 +4,16 @@ Future<T?> pushNewScreen<T>(
   BuildContext context, {
   required Widget screen,
   bool? withNavBar,
-  PageTransitionAnimation pageTransitionAnimation = PageTransitionAnimation.cupertino,
+  PageTransitionAnimation pageTransitionAnimation =
+      PageTransitionAnimation.cupertino,
   PageRoute? customPageRoute,
 }) {
   if (withNavBar == null) {
     withNavBar = true;
   }
-  return Navigator.of(context, rootNavigator: !withNavBar)
-      .push<T>(customPageRoute as Route<T>? ?? getPageRoute(pageTransitionAnimation, enterPage: screen));
+  return Navigator.of(context, rootNavigator: !withNavBar).push<T>(
+      customPageRoute as Route<T>? ??
+          getPageRoute(pageTransitionAnimation, enterPage: screen));
 }
 
 Future<T?> pushDynamicScreen<T>(
@@ -30,7 +32,8 @@ Future<T?> pushNewScreenWithRouteSettings<T>(
   required Widget screen,
   required RouteSettings settings,
   bool? withNavBar,
-  PageTransitionAnimation pageTransitionAnimation = PageTransitionAnimation.cupertino,
+  PageTransitionAnimation pageTransitionAnimation =
+      PageTransitionAnimation.cupertino,
   PageRoute? customPageRoute,
 }) {
   if (withNavBar == null) {
@@ -38,5 +41,7 @@ Future<T?> pushNewScreenWithRouteSettings<T>(
   }
 
   return Navigator.of(context, rootNavigator: !withNavBar).push<T>(
-      customPageRoute as Route<T>? ?? getPageRoute(pageTransitionAnimation, enterPage: screen, settings: settings));
+      customPageRoute as Route<T>? ??
+          getPageRoute(pageTransitionAnimation,
+              enterPage: screen, settings: settings));
 }

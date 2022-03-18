@@ -44,8 +44,10 @@ class NavBarEssentials {
       onItemSelected: onItemSelected ?? this.onItemSelected,
       navBarHeight: navBarHeight ?? this.navBarHeight,
       padding: padding ?? this.padding,
-      popScreensOnTapOfSelectedTab: popScreensOnTapOfSelectedTab ?? this.popScreensOnTapOfSelectedTab,
-      itemAnimationProperties: itemAnimationProperties ?? this.itemAnimationProperties,
+      popScreensOnTapOfSelectedTab:
+          popScreensOnTapOfSelectedTab ?? this.popScreensOnTapOfSelectedTab,
+      itemAnimationProperties:
+          itemAnimationProperties ?? this.itemAnimationProperties,
     );
   }
 }

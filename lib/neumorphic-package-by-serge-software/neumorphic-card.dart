@@ -124,7 +124,11 @@ class NeumorphicContainer extends StatelessWidget {
   }
 
   Color _getAdjustColor(Color baseColor, double amount) {
-    Map<String, int> colors = {'r': baseColor.red, 'g': baseColor.green, 'b': baseColor.blue};
+    Map<String, int> colors = {
+      'r': baseColor.red,
+      'g': baseColor.green,
+      'b': baseColor.blue
+    };
 
     colors = colors.map((key, value) {
       if (value + amount < 0) {
@@ -147,7 +151,8 @@ class NeumorphicContainer extends StatelessWidget {
         ],
       );
 
-  Gradient _getConcaveGradients(Color baseColor, double depth) => LinearGradient(
+  Gradient _getConcaveGradients(Color baseColor, double depth) =>
+      LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [

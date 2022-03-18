@@ -8,14 +8,17 @@ class BottomNavStyle1 extends StatelessWidget {
     this.navBarEssentials = const NavBarEssentials(items: null),
   });
 
-  Widget _buildItem(PersistentBottomNavBarItem item, bool isSelected, double? height) {
+  Widget _buildItem(
+      PersistentBottomNavBarItem item, bool isSelected, double? height) {
     return this.navBarEssentials!.navBarHeight == 0
         ? SizedBox.shrink()
         : AnimatedContainer(
             width: isSelected ? 120 : 50,
             height: height! / 1.6,
-            duration: navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 400),
-            curve: navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease,
+            duration: navBarEssentials!.itemAnimationProperties?.duration ??
+                Duration(milliseconds: 400),
+            curve:
+                navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease,
             padding: EdgeInsets.all(item.contentPadding),
             decoration: BoxDecoration(
               color: isSelected
@@ -32,7 +35,8 @@ class BottomNavStyle1 extends StatelessWidget {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: EdgeInsets.only(right: item.title == null ? 0.0 : 8),
+                      padding:
+                          EdgeInsets.only(right: item.title == null ? 0.0 : 8),
                       child: IconTheme(
                         data: IconThemeData(
                             size: item.iconSize,
@@ -43,7 +47,9 @@ class BottomNavStyle1 extends StatelessWidget {
                                 : item.inactiveColorPrimary == null
                                     ? item.activeColorPrimary
                                     : item.inactiveColorPrimary),
-                        child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
+                        child: isSelected
+                            ? item.icon
+                            : item.inactiveIcon ?? item.icon,
                       ),
                     ),
                   ),
@@ -59,14 +65,16 @@ class BottomNavStyle1 extends StatelessWidget {
                                   style: item.textStyle != null
                                       ? (item.textStyle!.apply(
                                           color: isSelected
-                                              ? (item.activeColorSecondary == null
+                                              ? (item.activeColorSecondary ==
+                                                      null
                                                   ? item.activeColorPrimary
                                                   : item.activeColorSecondary)
                                               : item.inactiveColorPrimary))
                                       : TextStyle(
-                                          color: (item.activeColorSecondary == null
-                                              ? item.activeColorPrimary
-                                              : item.activeColorSecondary),
+                                          color:
+                                              (item.activeColorSecondary == null
+                                                  ? item.activeColorPrimary
+                                                  : item.activeColorSecondary),
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12.0),
                                 )),
@@ -90,10 +98,14 @@ class BottomNavStyle1 extends StatelessWidget {
                 vertical: this.navBarEssentials!.navBarHeight! * 0.15,
               )
             : EdgeInsets.only(
-                top: this.navBarEssentials!.padding?.top ?? this.navBarEssentials!.navBarHeight! * 0.15,
-                left: this.navBarEssentials!.padding?.left ?? MediaQuery.of(context).size.width * 0.07,
-                right: this.navBarEssentials!.padding?.right ?? MediaQuery.of(context).size.width * 0.07,
-                bottom: this.navBarEssentials!.padding?.bottom ?? this.navBarEssentials!.navBarHeight! * 0.15),
+                top: this.navBarEssentials!.padding?.top ??
+                    this.navBarEssentials!.navBarHeight! * 0.15,
+                left: this.navBarEssentials!.padding?.left ??
+                    MediaQuery.of(context).size.width * 0.07,
+                right: this.navBarEssentials!.padding?.right ??
+                    MediaQuery.of(context).size.width * 0.07,
+                bottom: this.navBarEssentials!.padding?.bottom ??
+                    this.navBarEssentials!.navBarHeight! * 0.15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,13 +116,16 @@ class BottomNavStyle1 extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   if (this.navBarEssentials!.items![index].onPressed != null) {
-                    this.navBarEssentials!.items![index].onPressed!(this.navBarEssentials!.selectedScreenBuildContext);
+                    this.navBarEssentials!.items![index].onPressed!(
+                        this.navBarEssentials!.selectedScreenBuildContext);
                   } else {
                     this.navBarEssentials!.onItemSelected!(index);
                   }
                 },
                 child: _buildItem(
-                    item, this.navBarEssentials!.selectedIndex == index, this.navBarEssentials!.navBarHeight),
+                    item,
+                    this.navBarEssentials!.selectedIndex == index,
+                    this.navBarEssentials!.navBarHeight),
               ),
             );
           }).toList(),

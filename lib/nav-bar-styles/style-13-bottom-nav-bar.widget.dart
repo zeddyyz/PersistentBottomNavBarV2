@@ -12,7 +12,8 @@ class BottomNavStyle13 extends StatefulWidget {
   _BottomNavStyle13State createState() => _BottomNavStyle13State();
 }
 
-class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProviderStateMixin {
+class _BottomNavStyle13State extends State<BottomNavStyle13>
+    with TickerProviderStateMixin {
   late List<AnimationController> _animationControllerList;
   late List<Animation<Offset>> _animationList;
 
@@ -29,10 +30,16 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
 
     for (int i = 0; i < widget.navBarEssentials!.items!.length; ++i) {
       _animationControllerList.add(AnimationController(
-          duration: widget.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 400),
+          duration:
+              widget.navBarEssentials!.itemAnimationProperties?.duration ??
+                  Duration(milliseconds: 400),
           vsync: this));
-      _animationList.add(Tween(begin: Offset(0, widget.navBarEssentials!.navBarHeight! / 1.5), end: Offset(0, 0.0))
-          .chain(CurveTween(curve: widget.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease))
+      _animationList.add(Tween(
+              begin: Offset(0, widget.navBarEssentials!.navBarHeight! / 1.5),
+              end: Offset(0, 0.0))
+          .chain(CurveTween(
+              curve: widget.navBarEssentials!.itemAnimationProperties?.curve ??
+                  Curves.ease))
           .animate(_animationControllerList[i]));
     }
 
@@ -41,10 +48,13 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
     });
   }
 
-  Widget _buildItem(PersistentBottomNavBarItem item, bool isSelected, double? height, int itemIndex) {
+  Widget _buildItem(PersistentBottomNavBarItem item, bool isSelected,
+      double? height, int itemIndex) {
     double itemWidth = ((MediaQuery.of(context).size.width -
-            ((widget.navBarEssentials!.padding?.left ?? MediaQuery.of(context).size.width * 0.05) +
-                (widget.navBarEssentials!.padding?.right ?? MediaQuery.of(context).size.width * 0.05))) /
+            ((widget.navBarEssentials!.padding?.left ??
+                    MediaQuery.of(context).size.width * 0.05) +
+                (widget.navBarEssentials!.padding?.right ??
+                    MediaQuery.of(context).size.width * 0.05))) /
         widget.navBarEssentials!.items!.length);
     return widget.navBarEssentials!.navBarHeight == 0
         ? SizedBox.shrink()
@@ -71,7 +81,9 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
                                 : item.inactiveColorPrimary == null
                                     ? item.activeColorPrimary
                                     : item.inactiveColorPrimary),
-                        child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
+                        child: isSelected
+                            ? item.icon
+                            : item.inactiveIcon ?? item.icon,
                       ),
                     ),
                     item.title == null
@@ -79,7 +91,8 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
                         : Transform.translate(
                             offset: _animationList[itemIndex].value,
                             child: AnimatedContainer(
-                              duration: widget.navBarEssentials!.itemAnimationProperties?.duration ??
+                              duration: widget.navBarEssentials!
+                                      .itemAnimationProperties?.duration ??
                                   Duration(milliseconds: 400),
                               height: 5.0,
                               width: itemWidth * 0.8,
@@ -109,16 +122,25 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    if (widget.navBarEssentials!.items!.length != _animationControllerList.length) {
-      _animationControllerList = List<AnimationController>.empty(growable: true);
+    if (widget.navBarEssentials!.items!.length !=
+        _animationControllerList.length) {
+      _animationControllerList =
+          List<AnimationController>.empty(growable: true);
       _animationList = List<Animation<Offset>>.empty(growable: true);
 
       for (int i = 0; i < widget.navBarEssentials!.items!.length; ++i) {
         _animationControllerList.add(AnimationController(
-            duration: widget.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 400),
+            duration:
+                widget.navBarEssentials!.itemAnimationProperties?.duration ??
+                    Duration(milliseconds: 400),
             vsync: this));
-        _animationList.add(Tween(begin: Offset(0, widget.navBarEssentials!.navBarHeight! / 2.0), end: Offset(0, 0.0))
-            .chain(CurveTween(curve: widget.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease))
+        _animationList.add(Tween(
+                begin: Offset(0, widget.navBarEssentials!.navBarHeight! / 2.0),
+                end: Offset(0, 0.0))
+            .chain(CurveTween(
+                curve:
+                    widget.navBarEssentials!.itemAnimationProperties?.curve ??
+                        Curves.ease))
             .animate(_animationControllerList[i]));
       }
     }
@@ -132,10 +154,14 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
       width: double.infinity,
       height: widget.navBarEssentials!.navBarHeight,
       padding: EdgeInsets.only(
-          left: widget.navBarEssentials!.padding?.left ?? MediaQuery.of(context).size.width * 0.04,
-          right: widget.navBarEssentials!.padding?.right ?? MediaQuery.of(context).size.width * 0.04,
-          top: widget.navBarEssentials!.padding?.top ?? widget.navBarEssentials!.navBarHeight! * 0.15,
-          bottom: widget.navBarEssentials!.padding?.bottom ?? widget.navBarEssentials!.navBarHeight! * 0.12),
+          left: widget.navBarEssentials!.padding?.left ??
+              MediaQuery.of(context).size.width * 0.04,
+          right: widget.navBarEssentials!.padding?.right ??
+              MediaQuery.of(context).size.width * 0.04,
+          top: widget.navBarEssentials!.padding?.top ??
+              widget.navBarEssentials!.navBarHeight! * 0.15,
+          bottom: widget.navBarEssentials!.padding?.bottom ??
+              widget.navBarEssentials!.navBarHeight! * 0.12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,8 +171,8 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
             child: GestureDetector(
               onTap: () {
                 if (widget.navBarEssentials!.items![index].onPressed != null) {
-                  widget
-                      .navBarEssentials!.items![index].onPressed!(widget.navBarEssentials!.selectedScreenBuildContext);
+                  widget.navBarEssentials!.items![index].onPressed!(
+                      widget.navBarEssentials!.selectedScreenBuildContext);
                 } else {
                   if (index != _selectedIndex) {
                     _lastSelectedIndex = _selectedIndex;
@@ -159,8 +185,11 @@ class _BottomNavStyle13State extends State<BottomNavStyle13> with TickerProvider
               },
               child: Container(
                 color: Colors.transparent,
-                child: _buildItem(item, widget.navBarEssentials!.selectedIndex == index,
-                    widget.navBarEssentials!.navBarHeight, index),
+                child: _buildItem(
+                    item,
+                    widget.navBarEssentials!.selectedIndex == index,
+                    widget.navBarEssentials!.navBarHeight,
+                    index),
               ),
             ),
           );

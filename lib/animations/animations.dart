@@ -19,7 +19,8 @@ class OffsetAnimation extends StatefulWidget {
   _OffsetAnimationState createState() => _OffsetAnimationState();
 }
 
-class _OffsetAnimationState extends State<OffsetAnimation> with SingleTickerProviderStateMixin {
+class _OffsetAnimationState extends State<OffsetAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController _navBarHideAnimationController;
   late Animation<Offset> _navBarOffsetAnimation;
   bool? _hideNavigationBar;
@@ -29,16 +30,18 @@ class _OffsetAnimationState extends State<OffsetAnimation> with SingleTickerProv
     super.initState();
     _hideNavigationBar = widget.hideNavigationBar;
 
-    _navBarHideAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-    _navBarOffsetAnimation = Tween<Offset>(begin: Offset(0, 0), end: Offset(0, widget.navBarHeight! + 22.0))
+    _navBarHideAnimationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    _navBarOffsetAnimation = Tween<Offset>(
+            begin: Offset(0, 0), end: Offset(0, widget.navBarHeight! + 22.0))
         .chain(CurveTween(curve: Curves.ease))
         .animate(_navBarHideAnimationController);
 
     _hideAnimation();
 
     _navBarHideAnimationController.addListener(() {
-      widget.onAnimationComplete!(
-          _navBarHideAnimationController.isAnimating, _navBarHideAnimationController.isCompleted);
+      widget.onAnimationComplete!(_navBarHideAnimationController.isAnimating,
+          _navBarHideAnimationController.isCompleted);
     });
   }
 
@@ -60,7 +63,8 @@ class _OffsetAnimationState extends State<OffsetAnimation> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    if (_hideNavigationBar != null || _hideNavigationBar != widget.hideNavigationBar) {
+    if (_hideNavigationBar != null ||
+        _hideNavigationBar != widget.hideNavigationBar) {
       _hideNavigationBar = widget.hideNavigationBar;
       _hideAnimation();
     }

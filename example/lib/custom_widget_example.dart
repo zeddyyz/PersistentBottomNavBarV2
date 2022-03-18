@@ -134,8 +134,7 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
           items: _navBarsItems(),
           onItemSelected: (index) {
             setState(() {
-              navBarEssentials
-                  .onItemSelected(index); // THIS IS CRITICAL!! Don't miss it!
+              navBarEssentials.onItemSelected(index);
             });
           },
           selectedIndex: _controller.index,
