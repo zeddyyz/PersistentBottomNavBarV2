@@ -279,7 +279,8 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
   late List<AnimationController?> _animationControllers;
   late List<Animation<double>?> _animations;
   int? _tabCount;
-  int? _lastIndex;
+  late int _currentTabIndex;
+  late int _previousTabIndex;
   bool _animationCompletionIndex = false;
   bool? _showAnimation;
   double? _animationValue;
@@ -290,7 +291,8 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
   void initState() {
     super.initState();
     shouldBuildTab.addAll(List<bool>.filled(widget.tabCount!, false));
-    _lastIndex = widget.currentTabIndex;
+    _currentTabIndex = widget.currentTabIndex;
+    _previousTabIndex = widget.currentTabIndex;
     _tabCount = widget.tabCount;
     _animationCompletionIndex = false;
     _showAnimation = widget.screenTransitionAnimation!.animateTabTransition;
@@ -320,11 +322,11 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
         _animationControllers[i]!.addListener(() {
           if (_animationControllers[i]!.isCompleted &&
               _animationCompletionIndex) {
+            _animationControllers[i]!.reset();
             setState(() {
               if (!widget.stateManagement!) {
                 key = UniqueKey();
               }
-              _lastIndex = widget.currentTabIndex;
             });
             _animationCompletionIndex = false;
           }
@@ -335,7 +337,7 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
 
   void _focusActiveTab() {
     if (widget.screenTransitionAnimation!.animateTabTransition)
-      _newPageAnimation();
+      _startAnimation();
     if (tabFocusNodes.length != widget.tabCount) {
       if (tabFocusNodes.length > widget.tabCount!) {
         discardedNodes.addAll(tabFocusNodes.sublist(widget.tabCount!));
@@ -351,49 +353,37 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
         );
       }
     }
-    FocusScope.of(context).setFirstFocus(tabFocusNodes[widget.currentTabIndex]);
-    if (widget.screenTransitionAnimation!.animateTabTransition)
-      _lastPageAnimation();
+    FocusScope.of(context).setFirstFocus(tabFocusNodes[_currentTabIndex]);
   }
 
-  _lastPageAnimation() {
-    if (_lastIndex! > widget.currentTabIndex &&
-        !_animationControllers[_lastIndex!]!.isAnimating) {
-      _animationControllers[_lastIndex!]!.reset();
-      _animations[_lastIndex!] = Tween(begin: 0.0, end: _animationValue)
-          .chain(CurveTween(curve: widget.screenTransitionAnimation!.curve))
-          .animate(_animationControllers[_lastIndex!]!);
-      _animationControllers[_lastIndex!]!.forward();
-    } else if (_lastIndex! < widget.currentTabIndex &&
-        !_animationControllers[_lastIndex!]!.isAnimating) {
-      _animationControllers[_lastIndex!]!.reset();
-      _animations[_lastIndex!] = Tween(begin: 0.0, end: -_animationValue!)
-          .chain(CurveTween(curve: widget.screenTransitionAnimation!.curve))
-          .animate(_animationControllers[_lastIndex!]!);
-      _animationControllers[_lastIndex!]!.forward();
-    }
-  }
+  /// Starts the animation from one tab to another by shifting the previous
+  /// tab to the left/right and making the new tab appear from left/right.
+  /// This method must only be called once when [_previousTabIndex]
+  /// and [_currentTabIndex] change.
+  void _startAnimation() {
+    if (_previousTabIndex == _currentTabIndex) return;
+    _animationControllers[_previousTabIndex]!.reset();
+    _animations[_previousTabIndex] = Tween(
+            begin: 0.0,
+            end: (_previousTabIndex > _currentTabIndex)
+                ? _animationValue
+                : -_animationValue!)
+        .chain(CurveTween(curve: widget.screenTransitionAnimation!.curve))
+        .animate(_animationControllers[_previousTabIndex]!);
 
-  _newPageAnimation() {
-    if (_lastIndex! > widget.currentTabIndex &&
-        !_animationControllers[widget.currentTabIndex]!.isAnimating) {
-      _animationControllers[widget.currentTabIndex]!.reset();
-      _animations[widget.currentTabIndex] =
-          Tween(begin: -_animationValue!, end: 0.0)
-              .chain(CurveTween(curve: widget.screenTransitionAnimation!.curve))
-              .animate(_animationControllers[widget.currentTabIndex]!);
-      _animationControllers[widget.currentTabIndex]!.forward();
-      _animationCompletionIndex = true;
-    } else if (_lastIndex! < widget.currentTabIndex &&
-        !_animationControllers[widget.currentTabIndex]!.isAnimating) {
-      _animationControllers[widget.currentTabIndex]!.reset();
-      _animations[widget.currentTabIndex] =
-          Tween(begin: _animationValue, end: 0.0)
-              .chain(CurveTween(curve: widget.screenTransitionAnimation!.curve))
-              .animate(_animationControllers[widget.currentTabIndex]!);
-      _animationControllers[widget.currentTabIndex]!.forward();
-      _animationCompletionIndex = true;
-    }
+    _animationControllers[_currentTabIndex]!.reset();
+    _animations[_currentTabIndex] = Tween(
+      begin: (_previousTabIndex > _currentTabIndex)
+          ? -_animationValue!
+          : _animationValue!,
+      end: 0.0,
+    )
+        .chain(CurveTween(curve: widget.screenTransitionAnimation!.curve))
+        .animate(_animationControllers[_currentTabIndex]!);
+
+    _animationControllers[_previousTabIndex]!.forward();
+    _animationControllers[_currentTabIndex]!.forward();
+    return;
   }
 
   Widget _buildScreens() {
@@ -402,9 +392,9 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
       child: Stack(
         fit: StackFit.expand,
         children: List<Widget>.generate(widget.tabCount!, (int index) {
-          final bool active = index == widget.currentTabIndex ||
+          final bool active = index == _currentTabIndex ||
               (widget.screenTransitionAnimation!.animateTabTransition &&
-                  index == _lastIndex);
+                  index == _previousTabIndex);
           shouldBuildTab[index] = active || shouldBuildTab[index];
 
           return Offstage(
@@ -449,7 +439,11 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
     } else if (lengthDiff < 0) {
       shouldBuildTab.removeRange(widget.tabCount!, shouldBuildTab.length);
     }
-    _focusActiveTab();
+    if (widget.currentTabIndex != oldWidget.currentTabIndex) {
+      _currentTabIndex = widget.currentTabIndex;
+      _previousTabIndex = oldWidget.currentTabIndex;
+      _focusActiveTab();
+    }
   }
 
   @override
