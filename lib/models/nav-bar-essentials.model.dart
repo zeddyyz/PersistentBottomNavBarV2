@@ -13,29 +13,26 @@ class NavBarEssentials {
   final BuildContext? selectedScreenBuildContext;
 
   const NavBarEssentials({
-    Key? key,
     this.selectedIndex,
     this.previousIndex,
     this.backgroundColor,
-    this.popScreensOnTapOfSelectedTab,
-    this.itemAnimationProperties,
-    this.navBarHeight = 0.0,
     required this.items,
     this.onItemSelected,
+    this.navBarHeight = 0.0,
     this.padding,
+    this.popScreensOnTapOfSelectedTab,
+    this.itemAnimationProperties,
     this.selectedScreenBuildContext,
   });
 
   NavBarEssentials copyWith({
     int? selectedIndex,
     int? previousIndex,
-    double? iconSize,
     Color? backgroundColor,
     List<PersistentBottomNavBarItem>? items,
     ValueChanged<int>? onItemSelected,
     double? navBarHeight,
     NavBarPadding? padding,
-    Function(int)? popAllScreensForTheSelectedTab,
     bool? popScreensOnTapOfSelectedTab,
     ItemAnimationProperties? itemAnimationProperties,
   }) {
