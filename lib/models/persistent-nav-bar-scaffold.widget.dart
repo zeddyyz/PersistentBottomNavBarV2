@@ -281,7 +281,6 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
   int? _tabCount;
   late int _currentTabIndex;
   late int _previousTabIndex;
-  bool _animationCompletionIndex = false;
   bool? _showAnimation;
   double? _animationValue;
   Curve? _animationCurve;
@@ -294,7 +293,6 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
     _currentTabIndex = widget.currentTabIndex;
     _previousTabIndex = widget.currentTabIndex;
     _tabCount = widget.tabCount;
-    _animationCompletionIndex = false;
     _showAnimation = widget.screenTransitionAnimation!.animateTabTransition;
 
     if (!widget.stateManagement!) {
@@ -320,15 +318,13 @@ class _TabSwitchingViewState extends State<_TabSwitchingView>
 
       for (int i = 0; i < widget.tabCount!; ++i) {
         _animationControllers[i]!.addListener(() {
-          if (_animationControllers[i]!.isCompleted &&
-              _animationCompletionIndex) {
-            _animationControllers[i]!.reset();
+          if (_animationControllers[i]!.isCompleted) {
+            _previousTabIndex = _currentTabIndex;
             setState(() {
               if (!widget.stateManagement!) {
                 key = UniqueKey();
               }
             });
-            _animationCompletionIndex = false;
           }
         });
       }
