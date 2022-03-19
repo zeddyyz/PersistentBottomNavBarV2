@@ -63,7 +63,9 @@ class PersistentTabView extends PersistentTabViewBase {
 
   final BuildContext context;
 
-  /// Creates a fullscreen container with a navigation bar at the bottom.
+  /// Creates a fullscreen container with a navigation bar at the bottom. The
+  /// navigation bar style can be chosen from [NavBarStyle]. If you want to
+  /// make a custom style use [PersistentTabView.custom].
   ///
   /// The different screens get displayed in the container when an item is
   /// selected in the navigation bar.
@@ -135,6 +137,13 @@ class PersistentTabView extends PersistentTabViewBase {
         "NavBar should have at least 2 or maximum 6 items (Except for styles 15-18)");
   }
 
+  /// Creates a fullscreen container with a navigation bar at the bottom. The
+  /// navigation bar has to be built by hand in the [customWidget] builder. This
+  /// also exposes [NavBarEssentials] to have more control over the navbar
+  /// behavior.
+  ///
+  /// The different screens get displayed in the container when an item is
+  /// selected in the navigation bar.
   PersistentTabView.custom(
     this.context, {
     Key? key,
