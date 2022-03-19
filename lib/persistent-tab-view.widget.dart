@@ -1,97 +1,101 @@
-// Author: Bilal Shahid
-// For queries, contact me at bilalscheema@gmail.com
+// Original Author: Bilal Shahid (bilalscheema@gmail.com)
+// Version 2 maintained by: Jannis Berndt (berndtjannis@gmail.com)
 
 part of persistent_bottom_nav_bar_v2;
 
-///A highly customizable persistent navigation bar for flutter.
+/// A highly customizable persistent bottom navigation bar for flutter.
 ///
-///To learn more, check out the [Readme](https://github.com/BilalShahid13/PersistentBottomNavBar).
-
+/// To learn more, check out the [Readme](https://github.com/jb3rndt/PersistentBottomNavBarV2).
 class PersistentTabView extends PersistentTabViewBase {
-  ///Screens that will be displayed on tapping of persistent bottom navigation bar items.
+  /// Screens that will be displayed on tapping of persistent bottom navigation bar items.
   final List<Widget> screens;
 
-  ///Controller for persistent bottom navigation bar. Will be declared if left empty.
+  /// Controller for persistent bottom navigation bar. Will be declared if left empty.
   final PersistentTabController? controller;
 
-  ///Background color of bottom navigation bar. `white` by default.
+  /// Background color of bottom navigation bar. `white` by default.
   final Color backgroundColor;
 
-  ///A custom widget which is displayed at the bottom right of the display at all times.
+  /// A custom widget which is displayed at the bottom right of the display at all times.
   final Widget? floatingActionButton;
 
-  ///Specifies the navBarHeight
+  /// Specifies the navBarHeight
   ///
-  ///Defaults to `kBottomNavigationBarHeight` which is `56.0`.
+  /// Defaults to `kBottomNavigationBarHeight` which is `56.0`.
   //final double navBarHeight;
 
-  ///The margin around the navigation bar.
+  /// The margin around the navigation bar.
   final EdgeInsets margin;
 
-  ///Will confine the NavBar's items in the safe area defined by the device.
+  /// Will confine the NavBar's items in the safe area defined by the device.
   final bool confineInSafeArea;
 
-  ///Handles android back button actions. Defaults to `true`.
+  /// Handles android back button actions. Defaults to `true`.
   ///
-  ///Action based on scenarios:
-  ///1. If the you are on the first tab with all screens popped of the given tab, the app will close.
-  ///2. If you are on another tab with all screens popped of that given tab, you will be switched to first tab.
-  ///3. If there are screens pushed on the selected tab, a screen will pop on a respective back button press.
+  /// Action based on scenarios:
+  /// 1. If the you are on the first tab with all screens popped of the given tab, the app will close.
+  /// 2. If you are on another tab with all screens popped of that given tab, you will be switched to first tab.
+  /// 3. If there are screens pushed on the selected tab, a screen will pop on a respective back button press.
   final bool handleAndroidBackButtonPress;
 
-  ///Bottom margin of the screen.
+  /// Bottom margin of the screen.
   final double? bottomScreenMargin;
 
-  /// Move up the screen when keyboard appears. Defaults to `true`.
+  ///  Move up the screen when keyboard appears. Defaults to `true`.
   final bool resizeToAvoidBottomInset;
 
-  ///Preserves the state of each tab's screen. `true` by default.
+  /// Preserves the state of each tab's screen. `true` by default.
   final bool stateManagement;
 
-  ///If you want to perform a custom action on Android when exiting the app, you can write your logic here. Returns context of the selected screen.
+  /// If you want to perform a custom action on Android when exiting the app, you can write your logic here. Returns context of the selected screen.
   final Future<bool> Function(BuildContext?)? onWillPop;
 
-  ///Returns the context of the selected tab.
+  /// Returns the context of the selected tab.
   final Function(BuildContext?)? selectedTabScreenContext;
 
-  ///Screen transition animation properties when switching tabs.
+  /// Screen transition animation properties when switching tabs.
   final ScreenTransitionAnimation screenTransitionAnimation;
 
   final bool hideNavigationBarWhenKeyboardShows;
 
-  ///Hides the navigation bar with an transition animation. Use it in conjuction with [Provider](https://pub.dev/packages/provider) for better results.
+  /// Hides the navigation bar with an transition animation. Use it in conjuction with [Provider](https://pub.dev/packages/provider) for better results.
   final bool? hideNavigationBar;
 
   final BuildContext context;
 
-  PersistentTabView(this.context,
-      {Key? key,
-      List<PersistentBottomNavBarItem>? items,
-      required this.screens,
-      this.controller,
-      double navBarHeight = kBottomNavigationBarHeight,
-      this.margin = EdgeInsets.zero,
-      this.backgroundColor = CupertinoColors.white,
-      ValueChanged<int>? onItemSelected,
-      NeumorphicProperties? neumorphicProperties,
-      this.floatingActionButton,
-      NavBarPadding padding = const NavBarPadding.all(null),
-      NavBarDecoration decoration = const NavBarDecoration(),
-      this.resizeToAvoidBottomInset = true,
-      this.bottomScreenMargin,
-      this.selectedTabScreenContext,
-      this.hideNavigationBarWhenKeyboardShows = true,
-      bool popAllScreensOnTapOfSelectedTab = true,
-      PopActionScreensType popActionScreens = PopActionScreensType.all,
-      this.confineInSafeArea = true,
-      this.onWillPop,
-      this.stateManagement = true,
-      this.handleAndroidBackButtonPress = true,
-      ItemAnimationProperties? itemAnimationProperties,
-      this.hideNavigationBar,
-      this.screenTransitionAnimation = const ScreenTransitionAnimation(),
-      NavBarStyle navBarStyle = NavBarStyle.style1})
-      : super(
+  /// Creates a fullscreen container with a navigation bar at the bottom.
+  ///
+  /// The different screens get displayed in the container when an item is
+  /// selected in the navigation bar.
+  PersistentTabView(
+    this.context, {
+    Key? key,
+    List<PersistentBottomNavBarItem>? items,
+    required this.screens,
+    this.controller,
+    double navBarHeight = kBottomNavigationBarHeight,
+    this.margin = EdgeInsets.zero,
+    this.backgroundColor = CupertinoColors.white,
+    ValueChanged<int>? onItemSelected,
+    NeumorphicProperties? neumorphicProperties,
+    this.floatingActionButton,
+    NavBarPadding padding = const NavBarPadding.all(null),
+    NavBarDecoration decoration = const NavBarDecoration(),
+    this.resizeToAvoidBottomInset = true,
+    this.bottomScreenMargin,
+    this.selectedTabScreenContext,
+    this.hideNavigationBarWhenKeyboardShows = true,
+    bool popAllScreensOnTapOfSelectedTab = true,
+    PopActionScreensType popActionScreens = PopActionScreensType.all,
+    this.confineInSafeArea = true,
+    this.onWillPop,
+    this.stateManagement = true,
+    this.handleAndroidBackButtonPress = true,
+    ItemAnimationProperties? itemAnimationProperties,
+    this.hideNavigationBar,
+    this.screenTransitionAnimation = const ScreenTransitionAnimation(),
+    NavBarStyle navBarStyle = NavBarStyle.style1,
+  }) : super(
           key: key,
           context: context,
           screens: screens,
@@ -193,96 +197,96 @@ class PersistentTabView extends PersistentTabViewBase {
 }
 
 class PersistentTabViewBase extends StatefulWidget {
-  ///List of persistent bottom navigation bar items to be displayed in the navigation bar.
+  /// List of persistent bottom navigation bar items to be displayed in the navigation bar.
   final List<PersistentBottomNavBarItem>? items;
 
-  ///Screens that will be displayed on tapping of persistent bottom navigation bar items.
+  /// Screens that will be displayed on tapping of persistent bottom navigation bar items.
   final List<Widget>? screens;
 
-  ///Controller for persistent bottom navigation bar. Will be declared if left empty.
+  /// Controller for persistent bottom navigation bar. Will be declared if left empty.
   final PersistentTabController? controller;
 
-  ///Background color of bottom navigation bar. `white` by default.
+  /// Background color of bottom navigation bar. `white` by default.
   final Color? backgroundColor;
 
-  ///Callback when page or tab change is detected.
+  /// Callback when page or tab change is detected.
   final ValueChanged<int>? onItemSelected;
 
-  ///Specifies the curve properties of the NavBar.
+  /// Specifies the curve properties of the NavBar.
   final NavBarDecoration? decoration;
 
-  ///`padding` for the persistent navigation bar content. Accepts `NavBarPadding` instead of `EdgeInsets`.
+  /// `padding` for the persistent navigation bar content. Accepts `NavBarPadding` instead of `EdgeInsets`.
   ///
-  ///`USE WITH CAUTION, MAY CAUSE LAYOUT ISSUES`.
+  /// `USE WITH CAUTION, MAY CAUSE LAYOUT ISSUES`.
   final NavBarPadding? padding;
 
-  ///Style for persistent bottom navigation bar. Accepts `NavBarStyle` to determine the theme.
+  /// Style for persistent bottom navigation bar. Accepts `NavBarStyle` to determine the theme.
   final NavBarStyle? navBarStyle;
 
-  ///Style the `neumorphic` navigation bar item.
+  /// Style the `neumorphic` navigation bar item.
   ///
-  ///Works only with style `neumorphic`.
+  /// Works only with style `neumorphic`.
   final NeumorphicProperties? neumorphicProperties;
 
-  ///A custom widget which is displayed at the bottom right of the display at all times.
+  /// A custom widget which is displayed at the bottom right of the display at all times.
   final Widget? floatingActionButton;
 
-  ///Specifies the navBarHeight
+  /// Specifies the navBarHeight
   ///
-  ///Defaults to `kBottomNavigationBarHeight` which is `56.0`.
+  /// Defaults to `kBottomNavigationBarHeight` which is `56.0`.
   final double? navBarHeight;
 
-  ///The margin around the navigation bar.
+  /// The margin around the navigation bar.
   final EdgeInsets? margin;
 
-  ///Custom navigation bar widget builder. To be only used when `navBarStyle` is set to `NavBarStyle.custom`.
+  /// Custom navigation bar widget builder. To be only used when `navBarStyle` is set to `NavBarStyle.custom`.
   final Widget Function(NavBarEssentials)? customWidget;
 
-  ///If using `custom` navBarStyle, define this instead of the `items` property
+  /// If using `custom` navBarStyle, define this instead of the `items` property
   final int? itemCount;
 
-  ///Will confine the NavBar's items in the safe area defined by the device.
+  /// Will confine the NavBar's items in the safe area defined by the device.
   final bool? confineInSafeArea;
 
-  ///Handles android back button actions. Defaults to `true`.
+  /// Handles android back button actions. Defaults to `true`.
   ///
-  ///Action based on scenarios:
-  ///1. If the you are on the first tab with all screens popped of the given tab, the app will close.
-  ///2. If you are on another tab with all screens popped of that given tab, you will be switched to first tab.
-  ///3. If there are screens pushed on the selected tab, a screen will pop on a respective back button press.
+  /// Action based on scenarios:
+  /// 1. If the you are on the first tab with all screens popped of the given tab, the app will close.
+  /// 2. If you are on another tab with all screens popped of that given tab, you will be switched to first tab.
+  /// 3. If there are screens pushed on the selected tab, a screen will pop on a respective back button press.
   final bool? handleAndroidBackButtonPress;
 
-  ///Bottom margin of the screen.
+  /// Bottom margin of the screen.
   final double? bottomScreenMargin;
 
-  ///If an already selected tab is pressed/tapped again, all the screens pushed on that particular tab will pop until the first screen in the stack. Defaults to `true`.
+  /// If an already selected tab is pressed/tapped again, all the screens pushed on that particular tab will pop until the first screen in the stack. Defaults to `true`.
   final bool popAllScreensOnTapOfSelectedTab;
 
-  ///If set all pop until to first screen else set once pop once
+  /// If set all pop until to first screen else set once pop once
   final PopActionScreensType? popActionScreens;
 
   final bool? resizeToAvoidBottomInset;
 
-  ///Preserves the state of each tab's screen. `true` by default.
+  /// Preserves the state of each tab's screen. `true` by default.
   final bool? stateManagement;
 
-  ///If you want to perform a custom action on Android when exiting the app, you can write your logic here.
+  /// If you want to perform a custom action on Android when exiting the app, you can write your logic here.
   final Future<bool> Function(BuildContext)? onWillPop;
 
-  ///Screen transition animation properties when switching tabs.
+  /// Screen transition animation properties when switching tabs.
   final ScreenTransitionAnimation? screenTransitionAnimation;
 
   final bool? hideNavigationBarWhenKeyboardShows;
 
-  ///This controls the animation properties of the items of the NavBar.
+  /// This controls the animation properties of the items of the NavBar.
   final ItemAnimationProperties? itemAnimationProperties;
 
-  ///Hides the navigation bar with an transition animation. Use it in conjuction with [Provider](https://pub.dev/packages/provider) for better results.
+  /// Hides the navigation bar with an transition animation. Use it in conjuction with [Provider](https://pub.dev/packages/provider) for better results.
   final bool? hideNavigationBar;
 
-  ///Define navigation bar route name and settings here.
+  /// Define navigation bar route name and settings here.
   ///
-  ///If you want to programmatically pop to initial screen on a specific use this route name when popping.
+  /// If you want to programmatically pop to initial screen on a specific use this route name when popping.
   final CustomWidgetRouteAndNavigatorSettings? routeAndNavigatorSettings;
 
   final bool? isCustomWidget;

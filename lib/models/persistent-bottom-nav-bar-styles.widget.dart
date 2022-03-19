@@ -26,7 +26,7 @@ enum NavBarStyle {
 enum PopActionScreensType { once, all }
 
 class NavBarDecoration {
-  ///Defines the curve radius of the corners of the NavBar.
+  /// Defines the curve radius of the corners of the NavBar.
   final BorderRadius borderRadius;
 
   /// Color for the container which holds the bottom NavBar.
@@ -40,7 +40,7 @@ class NavBarDecoration {
 
   final List<BoxShadow>? boxShadow;
 
-  ///If enabled, the screen's bottom padding will be adjusted accordingly to the amount of curve applied.
+  /// If enabled, the screen's bottom padding will be adjusted accordingly to the amount of curve applied.
   final bool adjustScreenBottomPaddingOnCurve;
 
   const NavBarDecoration({
