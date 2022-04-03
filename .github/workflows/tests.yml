@@ -38,7 +38,7 @@ jobs:
       # Checkout and get packages.
       - name: Checkout
         uses: actions/checkout@v2
-      - run: flutter pub get -v
+      - run: flutter pub get
 
       # Analyze, check formatting, and run unit tests.
       - run: flutter analyze
@@ -47,4 +47,5 @@ jobs:
       - name: Run Flutter unit tests
         run: flutter test --coverage
       - name: Upload Coverage to Codecov
+        if: ${{ runner.os == 'Linux' }}
         uses: codecov/codecov-action@v2
