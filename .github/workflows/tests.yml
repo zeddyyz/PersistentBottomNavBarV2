@@ -29,7 +29,11 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
-      - run: flutter doctor -v
+      - name: Add Flutter to PATH
+        run: echo "$RUNNER_TOOL_CACHE/flutter/bin" >> $GITHUB_PATH
+        shell: bash
+      - name: Flutter doctor
+        run: flutter doctor -v
 
       # Checkout and get packages.
       - name: Checkout
