@@ -18,3 +18,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+cider:
+  link_template:
+    tag: https://github.com/jb3rndt/PersistentBottomNavBarV2/releases/tag/%tag% # initial release link template
+    diff: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/%from%...%to% # subsequent releases link template
