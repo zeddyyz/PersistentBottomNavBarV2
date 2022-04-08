@@ -81,7 +81,7 @@ class PersistentTabView extends PersistentTabViewBase {
     ValueChanged<int>? onItemSelected,
     NeumorphicProperties? neumorphicProperties,
     this.floatingActionButton,
-    NavBarPadding padding = const NavBarPadding.all(0.0),
+    NavBarPadding padding = const NavBarPadding.all(null),
     NavBarDecoration decoration = const NavBarDecoration(),
     this.resizeToAvoidBottomInset = true,
     this.bottomScreenMargin,

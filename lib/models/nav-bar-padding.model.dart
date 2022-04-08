@@ -1,10 +1,10 @@
 part of persistent_bottom_nav_bar_v2;
 
 class NavBarPadding {
-  final double top;
-  final double bottom;
-  final double right;
-  final double left;
+  final double? top;
+  final double? bottom;
+  final double? right;
+  final double? left;
 
   const NavBarPadding.only({
     this.top = 0.0,
@@ -21,7 +21,7 @@ class NavBarPadding {
         this.right = horizontal,
         this.left = horizontal;
 
-  const NavBarPadding.all(double value)
+  const NavBarPadding.all(double? value)
       : this.top = value,
         this.bottom = value,
         this.right = value,
