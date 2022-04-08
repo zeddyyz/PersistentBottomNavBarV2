@@ -258,7 +258,6 @@ void main() {
         ),
       );
 
-      //TODO: check how backgroundColor also applies to the screens
       expect(
           ((tester.firstWidget((find.descendant(
                       of: find.byType(PersistentBottomNavBar),
@@ -478,6 +477,67 @@ void main() {
       expect(find.text("Screen1"), findsOneWidget);
       expect(find.text("Screen11"), findsNothing);
       expect(find.text("Screen111"), findsNothing);
+    });
+
+    testWidgets('persists screens while switching if stateManagement turned on',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => screenWithSubPages(id)).toList(),
+            items: items,
+            navBarStyle: NavBarStyle.style3,
+            stateManagement: true,
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen1"), findsNothing);
+      expect(find.text("Screen11"), findsOneWidget);
+      await tester.tap(find.text("Item2"));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen2"), findsOneWidget);
+      expect(find.text("Screen11"), findsNothing);
+      await tester.tap(find.text("Item1"));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen1"), findsNothing);
+      expect(find.text("Screen11"), findsOneWidget);
+    });
+
+    testWidgets('trashes screens while switching if stateManagement turned off',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => screenWithSubPages(id)).toList(),
+            items: items,
+            navBarStyle: NavBarStyle.style3,
+            stateManagement: false,
+            screenTransitionAnimation: ScreenTransitionAnimation(
+              animateTabTransition: true,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 200),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen1"), findsNothing);
+      expect(find.text("Screen11"), findsOneWidget);
+      await tester.tap(find.text("Item2"));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen2"), findsOneWidget);
+      expect(find.text("Screen11"), findsNothing);
+      await tester.tap(find.text("Item1"));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen11"), findsNothing);
+      expect(find.text("Screen1"), findsOneWidget);
     });
   });
 }
