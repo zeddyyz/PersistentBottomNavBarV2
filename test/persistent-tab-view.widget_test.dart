@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
+List<PersistentBottomNavBarItem> items = [
+  PersistentBottomNavBarItem(title: "Item1", icon: Icon(Icons.add)),
+  PersistentBottomNavBarItem(title: "Item2", icon: Icon(Icons.add)),
+  PersistentBottomNavBarItem(title: "Item3", icon: Icon(Icons.add)),
+];
+
 Widget defaultScreen(int id) => Container(child: Text("Screen$id"));
 
 Widget screenWithSubPages(int id) => id > 99
@@ -35,12 +41,6 @@ void main() {
   }
 
   group('PersistentTabView', () {
-    List<PersistentBottomNavBarItem> items = [
-      PersistentBottomNavBarItem(title: "Item1", icon: Icon(Icons.add)),
-      PersistentBottomNavBarItem(title: "Item2", icon: Icon(Icons.add)),
-      PersistentBottomNavBarItem(title: "Item3", icon: Icon(Icons.add)),
-    ];
-
     testWidgets('builds a PersistentBottomNavBar', (WidgetTester tester) async {
       await tester.pumpWidget(
         wrapTabView(
@@ -165,6 +165,46 @@ void main() {
       );
 
       expect(find.byType(PersistentBottomNavBar).hitTestable(), findsNothing);
+    });
+
+    testWidgets(
+        'does not hide navbar when hideNavigationBarWhenKeyboardShows is false and keyboard is up',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+            items: items,
+            navBarStyle: NavBarStyle.style3,
+            hideNavigationBarWhenKeyboardShows: false,
+          ),
+        ),
+      );
+
+      expect(find.byType(PersistentBottomNavBar).hitTestable(), findsOneWidget);
+
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => MediaQuery(
+            data: MediaQueryData(
+              viewInsets: const EdgeInsets.only(
+                  bottom: 100), // Simulate an open keyboard
+            ),
+            child: Builder(builder: (context) {
+              return PersistentTabView(
+                context,
+                screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+                items: items,
+                navBarStyle: NavBarStyle.style3,
+                hideNavigationBarWhenKeyboardShows: false,
+              );
+            }),
+          ),
+        ),
+      );
+
+      expect(find.byType(PersistentBottomNavBar).hitTestable(), findsOneWidget);
     });
 
     testWidgets("sizes the navbar according to navBarHeight",
@@ -539,5 +579,249 @@ void main() {
       expect(find.text("Screen11"), findsNothing);
       expect(find.text("Screen1"), findsOneWidget);
     });
+
+    testWidgets('shows FloatingActionButton if specified',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => screenWithSubPages(id)).toList(),
+            items: items,
+            navBarStyle: NavBarStyle.style3,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.add),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(FloatingActionButton).hitTestable(), findsOneWidget);
+    });
   });
+
+  group('PersistentTabView.custom', () {
+    testWidgets('builds a PersistentBottomNavBar', (WidgetTester tester) async {
+      await tester.pumpWidget(wrapTabView((context) => CustomView()));
+
+      expect(find.byKey(Key("customNavBar")).hitTestable(), findsOneWidget);
+    });
+
+    testWidgets('can switch through tabs', (WidgetTester tester) async {
+      await tester.pumpWidget(CustomView());
+
+      expect(find.text('Screen1'), findsOneWidget);
+      expect(find.text('Screen2'), findsNothing);
+      expect(find.text('Screen3'), findsNothing);
+      await tester.tap(find.text("Item2"));
+      await tester.pumpAndSettle();
+      expect(find.text('Screen1'), findsNothing);
+      expect(find.text('Screen2'), findsOneWidget);
+      expect(find.text('Screen3'), findsNothing);
+      await tester.tap(find.text("Item3"));
+      await tester.pumpAndSettle();
+      expect(find.text('Screen1'), findsNothing);
+      expect(find.text('Screen2'), findsNothing);
+      expect(find.text('Screen3'), findsOneWidget);
+      await tester.tap(find.text("Item1"));
+      await tester.pumpAndSettle();
+      expect(find.text('Screen1'), findsOneWidget);
+      expect(find.text('Screen2'), findsNothing);
+      expect(find.text('Screen3'), findsNothing);
+    });
+
+    testWidgets('hides the navbar when hideNavBar is true',
+        (WidgetTester tester) async {
+      await tester
+          .pumpWidget(wrapTabView((context) => CustomView(hideNavBar: true)));
+
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(Key("customNavBar")).hitTestable(), findsNothing);
+    });
+
+    testWidgets(
+        'hides the navbar when hideNavigationBarWhenKeyboardShows is true and keyboard is up',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => CustomView(
+            hideNavigationBarWhenKeyboardShows: true,
+          ),
+        ),
+      );
+
+      expect(find.byKey(Key("customNavBar")).hitTestable(), findsOneWidget);
+
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => MediaQuery(
+            data: MediaQueryData(
+              viewInsets: const EdgeInsets.only(
+                  bottom: 100), // Simulate an open keyboard
+            ),
+            child: Builder(
+              builder: (context) => CustomView(
+                hideNavigationBarWhenKeyboardShows: true,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byKey(Key("customNavBar")).hitTestable(), findsNothing);
+    });
+
+    testWidgets(
+        'does not hide navbar when hideNavigationBarWhenKeyboardShows is false and keyboard is up',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => CustomView(
+            hideNavigationBarWhenKeyboardShows: false,
+          ),
+        ),
+      );
+
+      expect(find.byKey(Key("customNavBar")).hitTestable(), findsOneWidget);
+
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => MediaQuery(
+            data: MediaQueryData(
+              viewInsets: const EdgeInsets.only(
+                  bottom: 100), // Simulate an open keyboard
+            ),
+            child: Builder(
+              builder: (context) => CustomView(
+                hideNavigationBarWhenKeyboardShows: false,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byKey(Key("customNavBar")).hitTestable(), findsOneWidget);
+    });
+
+    testWidgets("sizes the navbar according to navBarHeight",
+        (WidgetTester tester) async {
+      double height = 42;
+
+      await tester.pumpWidget(
+        wrapTabView((context) => CustomView(
+              navBarHeight: height,
+            )),
+      );
+
+      expect(tester.getSize(find.byKey(Key("customNavBar"))).height,
+          equals(height));
+    });
+
+    testWidgets("puts padding around the navbar specified by margin",
+        (WidgetTester tester) async {
+      EdgeInsets margin = EdgeInsets.zero;
+
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => CustomView(
+            margin: margin,
+          ),
+        ),
+      );
+
+      expect(
+          Offset(0, 600) -
+              tester.getBottomLeft(find.byKey(Key("customNavBar"))),
+          equals(margin.bottomLeft));
+      expect(
+          Offset(800, 600 - 56) -
+              tester.getTopRight(find.byKey(Key("customNavBar"))),
+          equals(margin.topRight));
+
+      margin = EdgeInsets.fromLTRB(12, 10, 8, 6);
+
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => CustomView(
+            margin: margin,
+          ),
+        ),
+      );
+
+      expect(
+          tester.getBottomLeft(find.byKey(Key("customNavBar"))) -
+              Offset(0, 600),
+          equals(margin.bottomLeft));
+      expect(
+          tester.getTopRight(find.byKey(Key("customNavBar"))) -
+              Offset(800, 600 - 56 - margin.vertical),
+          equals(margin.topRight));
+    });
+  });
+}
+
+class CustomView extends StatefulWidget {
+  final bool hideNavBar;
+  final bool hideNavigationBarWhenKeyboardShows;
+  final double navBarHeight;
+  final EdgeInsets margin;
+
+  CustomView({
+    this.hideNavBar = false,
+    this.hideNavigationBarWhenKeyboardShows = true,
+    this.navBarHeight = kBottomNavigationBarHeight,
+    this.margin = EdgeInsets.zero,
+  });
+
+  @override
+  State<CustomView> createState() => _CustomViewState();
+}
+
+class _CustomViewState extends State<CustomView> {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: PersistentTabView.custom(
+        context,
+        screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+        items: items,
+        itemCount: 3,
+        hideNavigationBar: widget.hideNavBar,
+        hideNavigationBarWhenKeyboardShows:
+            widget.hideNavigationBarWhenKeyboardShows,
+        navBarHeight: widget.navBarHeight,
+        margin: widget.margin,
+        customWidget: (navBarEssentials) => Container(
+          key: Key("customNavBar"),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              ...items
+                  .map((item) => Container(
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              navBarEssentials
+                                  .onItemSelected!(items.indexOf(item));
+                            });
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              item.icon,
+                              Text(item.title ?? "Unknown"),
+                            ],
+                          ),
+                        ),
+                      ))
+                  .toList(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
