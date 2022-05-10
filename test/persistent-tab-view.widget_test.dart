@@ -31,6 +31,12 @@ Widget screenWithSubPages(int id) => id > 99
         ),
       );
 
+Future<void> tapAndroidBackButton(WidgetTester tester) async {
+  final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
+  await widgetsAppState.didPopRoute();
+  await tester.pumpAndSettle();
+}
+
 void main() {
   Widget wrapTabView(WidgetBuilder builder) {
     return MaterialApp(
@@ -329,6 +335,139 @@ void main() {
       await tester.tap(find.text("Item3"));
       await tester.pumpAndSettle();
       expect(count, 2);
+    });
+
+    testWidgets("executes onWillPop when exiting", (WidgetTester tester) async {
+      int count = 0;
+
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+            items: items,
+            navBarStyle: NavBarStyle.style3,
+            onWillPop: (context) async {
+              count++;
+              return true;
+            },
+          ),
+        ),
+      );
+
+      await tester.tap(find.text("Item2"));
+      await tester.pumpAndSettle();
+      await tapAndroidBackButton(tester);
+
+      expect(count, 1);
+    });
+
+    group("should handle Android back button press and thus", () {
+      testWidgets("switches to first tab on back button press",
+          (WidgetTester tester) async {
+        await tester.pumpWidget(
+          wrapTabView(
+            (context) => PersistentTabView(
+              context,
+              screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+              items: items,
+              navBarStyle: NavBarStyle.style3,
+              handleAndroidBackButtonPress: true,
+            ),
+          ),
+        );
+
+        expect(find.text('Screen1'), findsOneWidget);
+        expect(find.text('Screen2'), findsNothing);
+        await tester.tap(find.text("Item2"));
+        await tester.pumpAndSettle();
+        expect(find.text('Screen1'), findsNothing);
+        expect(find.text('Screen2'), findsOneWidget);
+
+        await tapAndroidBackButton(tester);
+
+        expect(find.text('Screen1'), findsOneWidget);
+        expect(find.text('Screen2'), findsNothing);
+      });
+
+      testWidgets("pops one screen on back button press",
+          (WidgetTester tester) async {
+        await tester.pumpWidget(
+          wrapTabView(
+            (context) => PersistentTabView(
+              context,
+              screens: [1, 2, 3].map((id) => screenWithSubPages(id)).toList(),
+              items: items,
+              navBarStyle: NavBarStyle.style3,
+              handleAndroidBackButtonPress: true,
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(ElevatedButton));
+        await tester.pumpAndSettle();
+        expect(find.text("Screen1"), findsNothing);
+        expect(find.text("Screen11"), findsOneWidget);
+
+        await tapAndroidBackButton(tester);
+
+        expect(find.text('Screen1'), findsOneWidget);
+        expect(find.text('Screen11'), findsNothing);
+      });
+    });
+
+    group("should not handle Android back button press and thus", () {
+      testWidgets("does not switch to first tab on back button press",
+          (WidgetTester tester) async {
+        await tester.pumpWidget(
+          wrapTabView(
+            (context) => PersistentTabView(
+              context,
+              screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+              items: items,
+              navBarStyle: NavBarStyle.style3,
+              handleAndroidBackButtonPress: false,
+            ),
+          ),
+        );
+
+        expect(find.text('Screen1'), findsOneWidget);
+        expect(find.text('Screen2'), findsNothing);
+        await tester.tap(find.text("Item2"));
+        await tester.pumpAndSettle();
+        expect(find.text('Screen1'), findsNothing);
+        expect(find.text('Screen2'), findsOneWidget);
+
+        await tapAndroidBackButton(tester);
+
+        expect(find.text('Screen1'), findsNothing);
+        expect(find.text('Screen2'), findsOneWidget);
+      });
+
+      testWidgets("pops no screen on back button press",
+          (WidgetTester tester) async {
+        await tester.pumpWidget(
+          wrapTabView(
+            (context) => PersistentTabView(
+              context,
+              screens: [1, 2, 3].map((id) => screenWithSubPages(id)).toList(),
+              items: items,
+              navBarStyle: NavBarStyle.style3,
+              handleAndroidBackButtonPress: false,
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(ElevatedButton));
+        await tester.pumpAndSettle();
+        expect(find.text("Screen1"), findsNothing);
+        expect(find.text("Screen11"), findsOneWidget);
+
+        await tapAndroidBackButton(tester);
+
+        expect(find.text("Screen1"), findsNothing);
+        expect(find.text("Screen11"), findsOneWidget);
+      });
     });
 
     testWidgets("navBarPadding does not make navbar bigger",
