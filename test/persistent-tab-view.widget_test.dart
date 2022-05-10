@@ -355,8 +355,6 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text("Item2"));
-      await tester.pumpAndSettle();
       await tapAndroidBackButton(tester);
 
       expect(count, 1);
