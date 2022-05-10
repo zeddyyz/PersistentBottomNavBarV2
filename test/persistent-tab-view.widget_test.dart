@@ -609,7 +609,7 @@ void main() {
     });
 
     testWidgets('can switch through tabs', (WidgetTester tester) async {
-      await tester.pumpWidget(CustomView());
+      await tester.pumpWidget(wrapTabView((context) => CustomView()));
 
       expect(find.text('Screen1'), findsOneWidget);
       expect(find.text('Screen2'), findsNothing);
