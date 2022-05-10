@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Change `NavBarPadding.fromLTRB to use correct order`
 
+## [4.1.10] - 2022-04-25
+
+- Remove label top padding in most styles because it broke layout for custom image icons (see [#20](https://github.com/jb3rndt/PersistentBottomNavBarV2/issues/20))
+
+## [4.1.9] - 2022-04-02
+
+- Add `navBarHeight` to `PersistentTabView.custom`
+
 ## [4.1.8] - 2022-03-19
 
 - Fix animation repeating when dependencies change
