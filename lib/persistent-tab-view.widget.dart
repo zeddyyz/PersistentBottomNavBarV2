@@ -204,6 +204,11 @@ class PersistentTabView extends PersistentTabViewBase {
                 routeAndNavigatorSettings.navigatorKeys!.length !=
                     items!.length,
         "Number of 'Navigator Keys' must be equal to the number of bottom navigation tabs.");
+    assert(
+        routeAndNavigatorSettings.navigatorObservers.isEmpty ||
+            routeAndNavigatorSettings.navigatorObservers.length ==
+                items!.length,
+        "Number of 'Navigator Observer Lists' must be equal to the number of bottom navigation tabs. Each list of navigatorObservers observes the corresponding screen in the given order.");
   }
 }
 
@@ -405,7 +410,10 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                     : widget.routeAndNavigatorSettings!
                         .navigatorKeys![_controller!.index],
             navigatorObservers:
-                widget.routeAndNavigatorSettings!.navigatorObservers,
+                widget.routeAndNavigatorSettings!.navigatorObservers.isEmpty
+                    ? []
+                    : widget.routeAndNavigatorSettings!
+                        .navigatorObservers[_controller!.index],
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
