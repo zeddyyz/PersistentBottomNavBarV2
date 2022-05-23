@@ -408,12 +408,12 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                 widget.routeAndNavigatorSettings!.navigatorKeys == null
                     ? null
                     : widget.routeAndNavigatorSettings!
-                        .navigatorKeys![_controller!.index],
+                        .navigatorKeys![index],
             navigatorObservers:
                 widget.routeAndNavigatorSettings!.navigatorObservers.isEmpty
                     ? []
                     : widget.routeAndNavigatorSettings!
-                        .navigatorObservers[_controller!.index],
+                        .navigatorObservers[index],
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
