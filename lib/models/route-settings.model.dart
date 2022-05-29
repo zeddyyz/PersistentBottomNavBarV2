@@ -57,7 +57,14 @@ class CustomWidgetRouteAndNavigatorSettings {
 
   final String? initialRoute;
 
-  final List<NavigatorObserver> navigatorObservers;
+  /// Each tab in your [PersistenBottomNavBar.custom] requires its own list of [NavigatorObserver]. As soon as you want to put a [NavigatorObserver] to one of your tabs, you need to set the list of observers for each tab. Of course, if you dont need observers for all tabs, the sublists can be empty too. All of this is ignored if you just leave the list empty, which is the default.
+  /// Usage example (3 tabs, [Navigator] of the first and last should be observed):
+  /// ```dart
+  /// CustomWidgetRouteAndNavigatorSettings(
+  ///   navigatorObservers: [[NavigatorObserver()], [], [NavigatorObserver()]]
+  /// )
+  /// ```
+  final List<List<NavigatorObserver>> navigatorObservers;
 
   final List<GlobalKey<NavigatorState>>? navigatorKeys;
 
@@ -67,7 +74,7 @@ class CustomWidgetRouteAndNavigatorSettings {
     this.onGenerateRoute,
     this.onUnknownRoute,
     this.initialRoute,
-    this.navigatorObservers = const <NavigatorObserver>[],
+    this.navigatorObservers = const <List<NavigatorObserver>>[],
     this.navigatorKeys,
   });
 
@@ -77,7 +84,7 @@ class CustomWidgetRouteAndNavigatorSettings {
     RouteFactory? onGenerateRoute,
     RouteFactory? onUnknownRoute,
     String? initialRoute,
-    List<NavigatorObserver>? navigatorObservers,
+    List<List<NavigatorObserver>>? navigatorObservers,
     List<GlobalKey<NavigatorState>>? navigatorKeys,
   }) {
     return CustomWidgetRouteAndNavigatorSettings(

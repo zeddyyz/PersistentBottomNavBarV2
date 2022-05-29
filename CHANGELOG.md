@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Added
+- Add basic tests
+
+### Fixed
+- Change `NavBarPadding.fromLTRB to use correct order`
+
+## [4.2.0] - 2022-05-23
+
+- Fixed bug where the NavigatorObservers of a custom PersistenTabView threw errors when switching to another tab
+- Fixed using the correct navigatorKeys for the correct tab
+- **Breaking Change**: The `CustomWidgetRouteAndNavigatorSettings.navigatorObservers` are now a list of lists of NavigatorObservers, so each tab has its own list of NavigatorObervers. See the attribute for more information
+  - Usage example (3 tabs, Navigator of the first and last should be observed):
+  - ```dart
+    CustomWidgetRouteAndNavigatorSettings(
+      navigatorObservers: [[NavigatorObserver()], [], [NavigatorObserver()]]
+    )
+    ```
+
+## [4.1.11] - 2022-05-13
+
+- Support Flutter 3.0.0 without triggering warnings (see `_ambiguate` function for more)
+
+## [4.1.10] - 2022-04-25
+
+- Remove label top padding in most styles because it broke layout for custom image icons (see [#20](https://github.com/jb3rndt/PersistentBottomNavBarV2/issues/20))
+
+## [4.1.9] - 2022-04-02
+
+- Add `navBarHeight` to `PersistentTabView.custom`
 
 ## [4.1.8] - 2022-03-19
 ### Fixed
@@ -405,6 +435,10 @@ onItemSelected: (index) {
 - Includes platform specific behavior as an option (specify it in the two navigator functions).
 - Based on flutter's Cupertino(iOS) bottom navigation bar.
 
+[4.2.0]: https://github.com/jb3rndt/PersistentBottomNavBarV2/releases/tag/v4.2.0
+[4.1.11]: https://github.com/jb3rndt/PersistentBottomNavBarV2
+[4.1.10]: https://github.com/jb3rndt/PersistentBottomNavBarV2
+[4.1.9]: https://github.com/jb3rndt/PersistentBottomNavBarV2
 [4.1.8]: https://github.com/jb3rndt/PersistentBottomNavBarV2
 [4.1.7]: https://github.com/jb3rndt/PersistentBottomNavBarV2
 [4.1.6]: https://github.com/jb3rndt/PersistentBottomNavBarV2

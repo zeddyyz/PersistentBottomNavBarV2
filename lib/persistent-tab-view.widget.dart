@@ -33,7 +33,7 @@ class PersistentTabView extends PersistentTabViewBase {
   /// Handles android back button actions. Defaults to `true`.
   ///
   /// Action based on scenarios:
-  /// 1. If the you are on the first tab with all screens popped of the given tab, the app will close.
+  /// 1. If you are on the first tab with all screens popped of the given tab, the app will close.
   /// 2. If you are on another tab with all screens popped of that given tab, you will be switched to first tab.
   /// 3. If there are screens pushed on the selected tab, a screen will pop on a respective back button press.
   final bool handleAndroidBackButtonPress;
@@ -204,6 +204,11 @@ class PersistentTabView extends PersistentTabViewBase {
                 routeAndNavigatorSettings.navigatorKeys!.length !=
                     items!.length,
         "Number of 'Navigator Keys' must be equal to the number of bottom navigation tabs.");
+    assert(
+        routeAndNavigatorSettings.navigatorObservers.isEmpty ||
+            routeAndNavigatorSettings.navigatorObservers.length ==
+                items!.length,
+        "Number of 'Navigator Observer Lists' must be equal to the number of bottom navigation tabs. Each list of navigatorObservers observes the corresponding screen in the given order.");
   }
 }
 
@@ -387,7 +392,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
       }
     });
     if (widget.selectedTabScreenContext != null) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) {
         widget.selectedTabScreenContext!(_contextList[_controller!.index]);
       });
     }
@@ -402,10 +407,11 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             navigatorKey:
                 widget.routeAndNavigatorSettings!.navigatorKeys == null
                     ? null
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorKeys![_controller!.index],
-            navigatorObservers:
-                widget.routeAndNavigatorSettings!.navigatorObservers,
+                    : widget.routeAndNavigatorSettings!.navigatorKeys![index],
+            navigatorObservers: widget
+                    .routeAndNavigatorSettings!.navigatorObservers.isEmpty
+                ? []
+                : widget.routeAndNavigatorSettings!.navigatorObservers[index],
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
