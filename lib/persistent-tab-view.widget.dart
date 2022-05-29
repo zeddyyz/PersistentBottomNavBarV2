@@ -407,13 +407,11 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             navigatorKey:
                 widget.routeAndNavigatorSettings!.navigatorKeys == null
                     ? null
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorKeys![index],
-            navigatorObservers:
-                widget.routeAndNavigatorSettings!.navigatorObservers.isEmpty
-                    ? []
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorObservers[index],
+                    : widget.routeAndNavigatorSettings!.navigatorKeys![index],
+            navigatorObservers: widget
+                    .routeAndNavigatorSettings!.navigatorObservers.isEmpty
+                ? []
+                : widget.routeAndNavigatorSettings!.navigatorObservers[index],
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
