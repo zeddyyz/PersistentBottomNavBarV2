@@ -204,6 +204,11 @@ class PersistentTabView extends PersistentTabViewBase {
                 routeAndNavigatorSettings.navigatorKeys!.length !=
                     items!.length,
         "Number of 'Navigator Keys' must be equal to the number of bottom navigation tabs.");
+    assert(
+        routeAndNavigatorSettings.navigatorObservers.isEmpty ||
+            routeAndNavigatorSettings.navigatorObservers.length ==
+                items!.length,
+        "Number of 'Navigator Observer Lists' must be equal to the number of bottom navigation tabs. Each list of navigatorObservers observes the corresponding screen in the given order.");
   }
 }
 
@@ -387,7 +392,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
       }
     });
     if (widget.selectedTabScreenContext != null) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) {
         widget.selectedTabScreenContext!(_contextList[_controller!.index]);
       });
     }
@@ -403,9 +408,12 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                 widget.routeAndNavigatorSettings!.navigatorKeys == null
                     ? null
                     : widget.routeAndNavigatorSettings!
-                        .navigatorKeys![_controller!.index],
+                        .navigatorKeys![index],
             navigatorObservers:
-                widget.routeAndNavigatorSettings!.navigatorObservers,
+                widget.routeAndNavigatorSettings!.navigatorObservers.isEmpty
+                    ? []
+                    : widget.routeAndNavigatorSettings!
+                        .navigatorObservers[index],
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
