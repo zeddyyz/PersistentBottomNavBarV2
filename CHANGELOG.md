@@ -16,10 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed bug where the NavigatorObservers of a custom PersistenTabView threw errors when switching to another tab
 - Fixed using the correct navigatorKeys for the correct tab
 - **Breaking Change**: The `CustomWidgetRouteAndNavigatorSettings.navigatorObservers` are now a list of lists of NavigatorObservers, so each tab has its own list of NavigatorObervers. See the attribute for more information- Usage example (3 tabs, Navigator of the first and last should be observed):
--     CustomWidgetRouteAndNavigatorSettings(
-      navigatorObservers: [[NavigatorObserver()], [], [NavigatorObserver()]]
-    )
-    
+  -     CustomWidgetRouteAndNavigatorSettings(
+          navigatorObservers: [[NavigatorObserver()], [], [NavigatorObserver()]]
+        )
+
 
 
 
