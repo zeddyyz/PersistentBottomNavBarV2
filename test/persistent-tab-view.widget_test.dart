@@ -744,6 +744,43 @@ void main() {
 
       expect(find.byType(FloatingActionButton).hitTestable(), findsOneWidget);
     });
+
+    testWidgets(
+        "style16 and style17 center button are tappable above the navBar",
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+            items: items,
+            navBarStyle: NavBarStyle.style16,
+          ),
+        ),
+      );
+
+      Offset topCenter =
+          tester.getRect(find.byType(PersistentBottomNavBar)).topCenter;
+      await tester.tapAt(topCenter.translate(0, -10));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen2"), findsOneWidget);
+
+      await tester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+            items: items,
+            navBarStyle: NavBarStyle.style17,
+          ),
+        ),
+      );
+
+      topCenter = tester.getRect(find.byType(PersistentBottomNavBar)).topCenter;
+      await tester.tapAt(topCenter.translate(0, -10));
+      await tester.pumpAndSettle();
+      expect(find.text("Screen2"), findsOneWidget);
+    });
   });
 
   group('PersistentTabView.custom', () {
