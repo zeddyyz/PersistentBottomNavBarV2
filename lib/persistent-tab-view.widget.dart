@@ -33,7 +33,7 @@ class PersistentTabView extends PersistentTabViewBase {
   /// Handles android back button actions. Defaults to `true`.
   ///
   /// Action based on scenarios:
-  /// 1. If the you are on the first tab with all screens popped of the given tab, the app will close.
+  /// 1. If you are on the first tab with all screens popped of the given tab, the app will close.
   /// 2. If you are on another tab with all screens popped of that given tab, you will be switched to first tab.
   /// 3. If there are screens pushed on the selected tab, a screen will pop on a respective back button press.
   final bool handleAndroidBackButtonPress;
@@ -407,13 +407,11 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             navigatorKey:
                 widget.routeAndNavigatorSettings!.navigatorKeys == null
                     ? null
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorKeys![index],
-            navigatorObservers:
-                widget.routeAndNavigatorSettings!.navigatorObservers.isEmpty
-                    ? []
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorObservers[index],
+                    : widget.routeAndNavigatorSettings!.navigatorKeys![index],
+            navigatorObservers: widget
+                    .routeAndNavigatorSettings!.navigatorObservers.isEmpty
+                ? []
+                : widget.routeAndNavigatorSettings!.navigatorObservers[index],
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
