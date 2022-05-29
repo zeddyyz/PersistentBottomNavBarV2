@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  FLUTTER_VERSION: '2.8.1'
+  FLUTTER_VERSION: '2.10.5'
 
 jobs:
   tests:
