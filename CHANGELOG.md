@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [4.2.1] - 2022-05-29
 ### Added
 - Add basic tests
 
@@ -12,27 +12,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change `NavBarPadding.fromLTRB to use correct order`
 
 ## [4.2.0] - 2022-05-23
-
+### Changed
 - Fixed bug where the NavigatorObservers of a custom PersistenTabView threw errors when switching to another tab
 - Fixed using the correct navigatorKeys for the correct tab
-- **Breaking Change**: The `CustomWidgetRouteAndNavigatorSettings.navigatorObservers` are now a list of lists of NavigatorObservers, so each tab has its own list of NavigatorObervers. See the attribute for more information
-  - Usage example (3 tabs, Navigator of the first and last should be observed):
-  - ```dart
-    CustomWidgetRouteAndNavigatorSettings(
+- **Breaking Change**: The `CustomWidgetRouteAndNavigatorSettings.navigatorObservers` are now a list of lists of NavigatorObservers, so each tab has its own list of NavigatorObervers. See the attribute for more information- Usage example (3 tabs, Navigator of the first and last should be observed):
+-     CustomWidgetRouteAndNavigatorSettings(
       navigatorObservers: [[NavigatorObserver()], [], [NavigatorObserver()]]
     )
-    ```
+    
+
+
 
 ## [4.1.11] - 2022-05-13
-
+### Changed
 - Support Flutter 3.0.0 without triggering warnings (see `_ambiguate` function for more)
 
 ## [4.1.10] - 2022-04-25
-
-- Remove label top padding in most styles because it broke layout for custom image icons (see [#20](https://github.com/jb3rndt/PersistentBottomNavBarV2/issues/20))
+### Changed
+- Remove label top padding in most styles because it broke layout for custom image icons (see [\#20](https://github.com/jb3rndt/PersistentBottomNavBarV2/issues/20))
 
 ## [4.1.9] - 2022-04-02
-
+### Changed
 - Add `navBarHeight` to `PersistentTabView.custom`
 
 ## [4.1.8] - 2022-03-19
@@ -53,15 +53,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix issue with `navbarDecoration.borderRadius` being null but expected to not be null by styles 15 and 16
 
 ## [4.1.4] - 2022-03-17
-### Fixed
-- `hideNavigationBarWhenKeyboardShows` no longer depends on `resizeToAvoidBottomInset` to work properly
+### Added
+- Adding interactive example
 
 ### Changed
 - `PersistentTabView.custom` passes `hideNavigationBarWhenKeyboardShows` to `super`
 - **Breaking** `resizeToAvoidBottomInset` defaults to `true` as per docs
 
-### Added
-- Adding interactive example
+### Fixed
+- `hideNavigationBarWhenKeyboardShows` no longer depends on `resizeToAvoidBottomInset` to work properly
 
 ## [4.1.3] - 2022-03-05
 ### Fixed
@@ -78,13 +78,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - You have to call `navBarEssentials.onItemSelected(index)` to trigger navigator stack clearing
 - **Breaking**: `customWidget` now is a builder that receives `navBarEssentials`
 - **Breaking**: To make `popAllScreensOnTapOfSelectedTab` work, specify your `onItemSelected` function of the `CustomWidget` like this:
-``` dart
-onItemSelected: (index) {
-    setState(() {
-        navBarEssentials.onItemSelected(index); // This also updates the controller index
-    });
-}
-```
 
 ## [4.1.0] - 2022-01-20
 ### Added
@@ -95,7 +88,7 @@ onItemSelected: (index) {
 
 ## [4.0.3] - 2022-01-20
 ### Changed
-- Republish package to [persistent_bottom_nav_bar_v2](https://pub.dev/packages/persistent_bottom_nav_bar_v2)
+- Republish package to [persistent\_bottom\_nav\_bar\_v2](https://pub.dev/packages/persistent_bottom_nav_bar_v2)
 
 ## [4.0.2] - 2021-03-27
 ### Fixed
@@ -171,7 +164,6 @@ onItemSelected: (index) {
 
 ## [2.0.0] - 2020-07-15
 ### Added
-#### These are not all the changes introduced in this update. Only the major ones. They were simply too many and couldn't be listed down here
 - Added transition animations to the Navigator functions.
 - Padding simplified into a single property and uses `NavBarPadding` instead of EdgeInsets.
 - New property called 'decoration' where are decoration related properties have been moved like curveRadius, boxShadow etc.
@@ -200,12 +192,12 @@ onItemSelected: (index) {
 - Updated Readme file.
 
 ## [1.5.2] - 2020-05-07
-### Fixed
-- Fixed nav bar background color consistency when translucency enabled.
-
 ### Added
 - Added an example for the navigator function `pushDynamicScreen` in the sample project.
 - Minor improvements to some styles.
+
+### Fixed
+- Fixed nav bar background color consistency when translucency enabled.
 
 ## [1.5.1] - 2020-04-30
 ### Changed
@@ -238,12 +230,12 @@ onItemSelected: (index) {
 ### Added
 - Implemented handling of the Android back button.
 
-### Fixed
-- Fixed the issue where the app would not close at all on Android back button press.
-
 ### Changed
 - Updated navigation bar height to give it the default platform look.
 - Updated styles to fix the issue where a tap would not be registered.
+
+### Fixed
+- Fixed the issue where the app would not close at all on Android back button press.
 
 ## [1.3.0] - 2020-04-25
 ### Added
@@ -290,7 +282,7 @@ onItemSelected: (index) {
 - bug fixes.
 
 ## [1.0.14] - 2020-01-27
-
+### Changed
 - Fixed `showElevation` invisible shadow issue.
 
 ## [1.0.13] - 2020-01-27
@@ -368,12 +360,12 @@ onItemSelected: (index) {
 - Updated style8's magnification.
 
 ## [1.0.3+4] - 2020-01-16
-### Changed
-- Updated navigator functions.
-
 ### Added
 - Added another style for the nav bar.
 - Added `horizontalPadding` property for the nav bar.
+
+### Changed
+- Updated navigator functions.
 
 ## [1.0.3+3] - 2020-01-10
 ### Fixed
@@ -388,11 +380,11 @@ onItemSelected: (index) {
 - Updated project description.
 
 ## [1.0.3] - 2020-01-09
-### Changed
-- Updated font sizes
-
 ### Added
 - 'bottomPadding` property for navigation bar items.
+
+### Changed
+- Updated font sizes
 
 ## [1.0.2+1] - 2020-01-09
 ### Fixed
@@ -435,6 +427,7 @@ onItemSelected: (index) {
 - Includes platform specific behavior as an option (specify it in the two navigator functions).
 - Based on flutter's Cupertino(iOS) bottom navigation bar.
 
+[4.2.1]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.0...4.2.1
 [4.2.0]: https://github.com/jb3rndt/PersistentBottomNavBarV2/releases/tag/v4.2.0
 [4.1.11]: https://github.com/jb3rndt/PersistentBottomNavBarV2
 [4.1.10]: https://github.com/jb3rndt/PersistentBottomNavBarV2
