@@ -1189,7 +1189,7 @@ void main() {
       expect(find.text("Screen11"), findsNothing);
       expect(find.text("Screen1"), findsOneWidget);
     });
-    
+
     testWidgets('shows FloatingActionButton if specified',
         (WidgetTester tester) async {
       await tester.pumpWidget(
