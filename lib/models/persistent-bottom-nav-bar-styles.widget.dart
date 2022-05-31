@@ -27,7 +27,7 @@ enum PopActionScreensType { once, all }
 
 class NavBarDecoration {
   /// Defines the curve radius of the corners of the NavBar.
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
 
   /// Color for the container which holds the bottom NavBar.
   ///
@@ -46,7 +46,7 @@ class NavBarDecoration {
   const NavBarDecoration({
     this.border,
     this.gradient,
-    this.borderRadius = BorderRadius.zero,
+    this.borderRadius,
     this.colorBehindNavBar = CupertinoColors.black,
     this.boxShadow,
     this.adjustScreenBottomPaddingOnCurve = true,

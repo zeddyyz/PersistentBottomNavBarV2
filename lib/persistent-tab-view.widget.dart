@@ -407,13 +407,11 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             navigatorKey:
                 widget.routeAndNavigatorSettings!.navigatorKeys == null
                     ? null
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorKeys![index],
-            navigatorObservers:
-                widget.routeAndNavigatorSettings!.navigatorObservers.isEmpty
-                    ? []
-                    : widget.routeAndNavigatorSettings!
-                        .navigatorObservers[index],
+                    : widget.routeAndNavigatorSettings!.navigatorKeys![index],
+            navigatorObservers: widget
+                    .routeAndNavigatorSettings!.navigatorObservers.isEmpty
+                ? []
+                : widget.routeAndNavigatorSettings!.navigatorObservers[index],
             onGenerateRoute: widget.routeAndNavigatorSettings!.onGenerateRoute,
             onUnknownRoute: widget.routeAndNavigatorSettings!.onUnknownRoute,
             routes: widget.routeAndNavigatorSettings!.routes,
@@ -487,9 +485,9 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                             min(
                                 widget.navBarHeight!,
                                 max(
-                                        widget.decoration!.borderRadius.topRight
-                                            .y,
-                                        widget.decoration!.borderRadius.topLeft
+                                        widget.decoration!.borderRadius!
+                                            .topRight.y,
+                                        widget.decoration!.borderRadius!.topLeft
                                             .y) +
                                     (widget.decoration?.border != null
                                         ? widget.decoration!.border!.dimensions
@@ -554,9 +552,9 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                             min(
                                 widget.navBarHeight!,
                                 max(
-                                        widget.decoration!.borderRadius.topRight
-                                            .y,
-                                        widget.decoration!.borderRadius.topLeft
+                                        widget.decoration!.borderRadius!
+                                            .topRight.y,
+                                        widget.decoration!.borderRadius!.topLeft
                                             .y) +
                                     (widget.decoration?.border != null
                                         ? widget.decoration!.border!.dimensions
