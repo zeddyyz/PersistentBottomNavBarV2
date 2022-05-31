@@ -113,7 +113,8 @@ class PersistentBottomNavBar extends StatelessWidget {
                           .opacity,
                     ),
                     child: ClipRRect(
-                      borderRadius: this.navBarDecoration!.borderRadius ?? BorderRadius.zero,
+                      borderRadius: this.navBarDecoration!.borderRadius ??
+                          BorderRadius.zero,
                       child: BackdropFilter(
                         filter: this
                                 .navBarEssentials!
