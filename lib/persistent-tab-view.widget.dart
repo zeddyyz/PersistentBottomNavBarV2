@@ -485,9 +485,13 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                             min(
                                 widget.navBarHeight!,
                                 max(
-                                        widget.decoration!.borderRadius!
-                                            .topRight.y,
-                                        widget.decoration!.borderRadius!.topLeft
+                                        (widget.decoration!.borderRadius ??
+                                                BorderRadius.zero)
+                                            .topRight
+                                            .y,
+                                        (widget.decoration!.borderRadius ??
+                                                BorderRadius.zero)
+                                            .topLeft
                                             .y) +
                                     (widget.decoration?.border != null
                                         ? widget.decoration!.border!.dimensions
@@ -552,9 +556,13 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                             min(
                                 widget.navBarHeight!,
                                 max(
-                                        widget.decoration!.borderRadius!
-                                            .topRight.y,
-                                        widget.decoration!.borderRadius!.topLeft
+                                        (widget.decoration!.borderRadius ??
+                                                BorderRadius.zero)
+                                            .topRight
+                                            .y,
+                                        (widget.decoration!.borderRadius ??
+                                                BorderRadius.zero)
+                                            .topLeft
                                             .y) +
                                     (widget.decoration?.border != null
                                         ? widget.decoration!.border!.dimensions
