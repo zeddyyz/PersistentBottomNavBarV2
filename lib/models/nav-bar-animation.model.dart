@@ -16,5 +16,8 @@ class ItemAnimationProperties {
   final Duration? duration;
   final Curve? curve;
 
-  const ItemAnimationProperties({this.duration, this.curve});
+  const ItemAnimationProperties({
+    this.duration,
+    this.curve,
+  });
 }
