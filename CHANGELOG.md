@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.2] - 2022-05-31
+### Fixed
+- Using one border side in NavbarDecoration caused an error (see [\#21](https://github.com/jb3rndt/PersistentBottomNavBarV2/issues/21))
+
 ## [4.2.1] - 2022-05-29
 ### Added
 - Add basic tests
@@ -15,13 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Fixed bug where the NavigatorObservers of a custom PersistenTabView threw errors when switching to another tab
 - Fixed using the correct navigatorKeys for the correct tab
-- **Breaking Change**: The `CustomWidgetRouteAndNavigatorSettings.navigatorObservers` are now a list of lists of NavigatorObservers, so each tab has its own list of NavigatorObervers. See the attribute for more information- Usage example (3 tabs, Navigator of the first and last should be observed):
-  -     CustomWidgetRouteAndNavigatorSettings(
-          navigatorObservers: [[NavigatorObserver()], [], [NavigatorObserver()]]
-        )
-
-
-
+- **Breaking Change**: The `CustomWidgetRouteAndNavigatorSettings.navigatorObservers` are now a list of lists of NavigatorObservers, so each tab has its own list of NavigatorObervers. See the attribute for more information and an example
 
 ## [4.1.11] - 2022-05-13
 ### Changed
@@ -427,6 +425,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Includes platform specific behavior as an option (specify it in the two navigator functions).
 - Based on flutter's Cupertino(iOS) bottom navigation bar.
 
+[4.2.2]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.1...4.2.2
 [4.2.1]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.0...4.2.1
 [4.2.0]: https://github.com/jb3rndt/PersistentBottomNavBarV2/releases/tag/v4.2.0
 [4.1.11]: https://github.com/jb3rndt/PersistentBottomNavBarV2
