@@ -1243,6 +1243,31 @@ void main() {
       expect(find.byType(FloatingActionButton).hitTestable(), findsOneWidget);
     });
   });
+
+  group("Regression", () {
+    testWidgets("#31 one navbar border side does not throw error",
+        (widgetTester) async {
+      await widgetTester.pumpWidget(
+        wrapTabView(
+          (context) => PersistentTabView(
+            context,
+            screens: [1, 2, 3].map((id) => defaultScreen(id)).toList(),
+            items: items,
+            decoration: const NavBarDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: Colors.grey,
+                  width: 2,
+                  style: BorderStyle.solid,
+                ),
+              ),
+            ),
+            navBarStyle: NavBarStyle.style3,
+          ),
+        ),
+      );
+    });
+  });
 }
 
 class CustomView extends StatefulWidget {
