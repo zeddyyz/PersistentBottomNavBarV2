@@ -429,7 +429,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                 _contextList[index] = screenContext;
                 if (_sendScreenContext) {
                   _sendScreenContext = false;
-                  widget.selectedTabScreenContext!(_contextList[index]);
+                  widget.selectedTabScreenContext!(_contextList[_controller!.index]);
                 }
                 return Material(elevation: 0, child: widget.screens[index]);
               },
@@ -455,7 +455,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                 _contextList[index] = screenContext;
                 if (_sendScreenContext) {
                   _sendScreenContext = false;
-                  widget.selectedTabScreenContext!(_contextList[index]);
+                  widget.selectedTabScreenContext!(_contextList[_controller!.index]);
                 }
                 return Material(elevation: 0, child: widget.screens[index]);
               },
@@ -526,7 +526,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
                 _contextList[index] = screenContext;
                 if (_sendScreenContext) {
                   _sendScreenContext = false;
-                  widget.selectedTabScreenContext!(_contextList[index]);
+                  widget.selectedTabScreenContext!(_contextList[_controller!.index]);
                 }
                 return Material(elevation: 0, child: widget.screens[index]);
               },
@@ -590,7 +590,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             _contextList[index] = screenContext;
             if (_sendScreenContext) {
               _sendScreenContext = false;
-              widget.selectedTabScreenContext!(_contextList[index]);
+              widget.selectedTabScreenContext!(_contextList[_controller!.index]);
             }
             return Material(elevation: 0, child: widget.screens[index]);
           });
