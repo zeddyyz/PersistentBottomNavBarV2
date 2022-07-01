@@ -5,7 +5,14 @@ on:
     tags:
       - "v*"
 
+env:
+  FLUTTER_VERSION: '2.10.5'
+
 jobs:
+  test:
+    name: Test and format
+    uses: jb3rndt/PersistentBottomNavBarV2/.github/workflows/tests.yml@master
+
   tagged-release:
     name: "Tagged Release"
     runs-on: "ubuntu-latest"
