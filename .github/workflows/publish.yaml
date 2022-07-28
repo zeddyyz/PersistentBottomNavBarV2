@@ -1,6 +1,7 @@
 name: Publish
-
 on:
+  tags:
+    - "v*"
   push:
 
 jobs:
@@ -14,6 +15,11 @@ jobs:
     needs: test
 
     steps:
+      - name: Create tagged Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
 
       - name: Publish package to pub.dev
         uses: sakebook/actions-flutter-pub-publisher@v1.4.0
