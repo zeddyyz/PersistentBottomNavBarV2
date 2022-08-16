@@ -135,19 +135,34 @@ class MyApp extends StatelessWidget {
         return [
             PersistentBottomNavBarItem(
                 icon: Icon(CupertinoIcons.home),
-                title: ("Home"),
+                title: "Home",
                 activeColorPrimary: CupertinoColors.activeBlue,
                 inactiveColorPrimary: CupertinoColors.systemGrey,
             ),
             PersistentBottomNavBarItem(
                 icon: Icon(CupertinoIcons.settings),
-                title: ("Settings"),
+                title: "Settings",
                 activeColorPrimary: CupertinoColors.activeBlue,
                 inactiveColorPrimary: CupertinoColors.systemGrey,
             ),
         ];
     }
 
+```
+
+If you need e.g. notification counters on the icons in the navBar, you can use the [badges](https://pub.dev/packages/badges) package like so: (see [Issue 11](https://github.com/jb3rndt/PersistentBottomNavBarV2/issues/11))
+
+```dart
+PersistentBottomNavBarItem(
+    icon: Badge(
+        animationType: BadgeAnimationType.scale,
+        badgeContent: UnreadIndicator(),
+        child: const Icon(
+            Icons.chat_rounded,
+        ),
+    ),
+    title: "Chat",
+),
 ```
 
 ## Navigator Functions

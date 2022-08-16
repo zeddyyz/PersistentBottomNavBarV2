@@ -151,7 +151,7 @@ class _ProvidedStyleExampleState extends State<ProvidedStyleExample> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.search),
-        title: ("Search"),
+        title: "Search",
         activeColorPrimary: Colors.teal,
         inactiveColorPrimary: Colors.grey,
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
@@ -164,7 +164,7 @@ class _ProvidedStyleExampleState extends State<ProvidedStyleExample> {
       ),
       PersistentBottomNavBarItem(
           icon: Icon(Icons.add),
-          title: ("Add"),
+          title: "Add",
           activeColorPrimary: Colors.blueAccent,
           activeColorSecondary: Colors.white,
           inactiveColorPrimary: Colors.white,
@@ -181,7 +181,7 @@ class _ProvidedStyleExampleState extends State<ProvidedStyleExample> {
           }),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.message),
-        title: ("Messages"),
+        title: "Messages",
         activeColorPrimary: Colors.deepOrange,
         inactiveColorPrimary: Colors.grey,
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
@@ -194,7 +194,7 @@ class _ProvidedStyleExampleState extends State<ProvidedStyleExample> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
-        title: ("Settings"),
+        title: "Settings",
         activeColorPrimary: Colors.indigo,
         inactiveColorPrimary: Colors.grey,
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
