@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- Fix cast error when using `onWillPop` with `handleAndroidBackButtonPress: false`
+
 ## [4.2.4] - 2022-07-01
 ### Fixed
 - Using bottom item TextStyle on style3 caused cast error
@@ -433,6 +437,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Includes platform specific behavior as an option (specify it in the two navigator functions).
 - Based on flutter's Cupertino(iOS) bottom navigation bar.
 
+[Unreleased]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.4...HEAD
 [4.2.4]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.3...4.2.4
 [4.2.3]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.2...4.2.3
 [4.2.2]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.1...4.2.2

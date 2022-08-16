@@ -695,8 +695,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
       return WillPopScope(
         onWillPop:
             !widget.handleAndroidBackButtonPress && widget.onWillPop != null
-                ? widget.onWillPop!(_contextList[_controller!.index])
-                    as Future<bool> Function()?
+                ? () => widget.onWillPop!(_contextList[_controller!.index])
                 : () async {
                     if (_controller!.index == 0 &&
                         !Navigator.canPop(_contextList.first!)) {
