@@ -2,7 +2,6 @@ name: Publish
 on:
   tags:
     - "v*"
-  push:
 
 jobs:
   test:
