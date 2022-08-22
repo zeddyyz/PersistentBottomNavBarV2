@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  FLUTTER_VERSION: '2.10.5'
+  FLUTTER_VERSION: "2.10.5"
 
 jobs:
   tests:
@@ -31,10 +31,6 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
 
-      - name: Add Flutter to PATH
-        run: echo "$RUNNER_TOOL_CACHE/flutter/bin" >> $GITHUB_PATH
-        shell: bash
-        
       - name: Flutter doctor
         run: flutter doctor -v
 
