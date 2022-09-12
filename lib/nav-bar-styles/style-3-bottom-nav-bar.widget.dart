@@ -68,9 +68,9 @@ class BottomNavStyle3 extends StatelessWidget {
                                         ? (item.activeColorSecondary == null
                                             ? item.activeColorPrimary
                                             : item.activeColorSecondary)
-                                        : item.inactiveColorPrimary == null
-                                            ? item.activeColorPrimary
-                                            : item.inactiveColorPrimary,
+                                        : item.inactiveColorSecondary == null
+                                            ? item.inactiveColorPrimary
+                                            : item.inactiveColorSecondary,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.0,
                                   ),
