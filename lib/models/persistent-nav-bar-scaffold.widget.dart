@@ -189,6 +189,10 @@ class _PersistentTabScaffoldState extends State<PersistentTabScaffold> {
       }
     }
 
+    contentPadding += widget.resizeToAvoidBottomInset
+        ? existingMediaQuery.viewInsets.bottom
+        : 0.0;
+
     if (widget.tabBar.hideNavigationBar != null) {
       content = MediaQuery(
         data: newMediaQuery,

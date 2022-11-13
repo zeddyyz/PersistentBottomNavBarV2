@@ -517,7 +517,7 @@ void main() {
         ),
       );
 
-      expect(tester.getSize(find.byType(PersistentTabScaffold)).height,
+      expect(tester.getSize(find.byKey(Key("TabSwitchingView"))).height,
           equals(500));
 
       await tester.pumpWidget(
@@ -540,7 +540,7 @@ void main() {
         ),
       );
 
-      expect(tester.getSize(find.byType(PersistentTabScaffold)).height,
+      expect(tester.getSize(find.byKey(Key("TabSwitchingView"))).height,
           equals(600));
     });
 
@@ -1072,7 +1072,7 @@ void main() {
         ),
       );
 
-      expect(tester.getSize(find.byType(PersistentTabScaffold)).height,
+      expect(tester.getSize(find.byKey(Key("TabSwitchingView"))).height,
           equals(500));
 
       await tester.pumpWidget(
@@ -1091,7 +1091,7 @@ void main() {
         ),
       );
 
-      expect(tester.getSize(find.byType(PersistentTabScaffold)).height,
+      expect(tester.getSize(find.byKey(Key("TabSwitchingView"))).height,
           equals(600));
     });
 
