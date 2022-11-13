@@ -602,79 +602,78 @@ class _PersistentTabViewState extends State<PersistentTabView> {
   }
 
   Widget navigationBarWidget() => PersistentTabScaffold(
-          controller: _controller,
-          itemCount: widget.items == null
-              ? widget.itemCount ?? 0
-              : widget.items!.length,
-          bottomScreenMargin:
-              widget.hideNavigationBar != null && widget.hideNavigationBar!
-                  ? 0.0
-                  : widget.bottomScreenMargin,
-          stateManagement: widget.stateManagement,
-          screenTransitionAnimation: widget.screenTransitionAnimation,
-          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-          animatePadding: _isAnimating! || _isCompleted!,
-          tabBar: PersistentBottomNavBar(
-            navBarEssentials: NavBarEssentials(
-              selectedIndex: _controller!.index,
-              previousIndex: _previousIndex,
-              padding: widget.padding,
-              selectedScreenBuildContext: _contextList[_controller!.index],
-              itemAnimationProperties: widget.itemAnimationProperties,
-              items: widget.items,
-              backgroundColor: widget.backgroundColor,
-              navBarHeight: _navBarHeight,
-              popScreensOnTapOfSelectedTab:
-                  widget.popAllScreensOnTapOfSelectedTab,
-              onItemSelected: (int index) {
-                if (_controller!.index != _previousIndex) {
-                  _previousIndex = _controller!.index;
-                }
-                if ((widget.popAllScreensOnTapOfSelectedTab) &&
-                    _previousIndex == index) {
-                  popAllScreens();
-                }
-                _controller!.index = index;
-                widget.onItemSelected?.call(index);
-              },
-            ),
-            isCustomWidget: widget.isCustomWidget,
-            navBarDecoration: widget.decoration,
-            margin: widget.margin,
-            confineToSafeArea: widget.confineInSafeArea,
-            hideNavigationBar: widget.hideNavigationBar,
-            navBarStyle: widget.navBarStyle,
-            neumorphicProperties: widget.neumorphicProperties,
-            customNavBarWidget: widget.customWidget,
-            onAnimationComplete: (isAnimating, isCompleted) {
-              if (_isAnimating != isAnimating) {
-                setState(() {
-                  _isAnimating = isAnimating;
-                });
+        controller: _controller,
+        itemCount:
+            widget.items == null ? widget.itemCount ?? 0 : widget.items!.length,
+        bottomScreenMargin:
+            widget.hideNavigationBar != null && widget.hideNavigationBar!
+                ? 0.0
+                : widget.bottomScreenMargin,
+        stateManagement: widget.stateManagement,
+        screenTransitionAnimation: widget.screenTransitionAnimation,
+        resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+        animatePadding: _isAnimating! || _isCompleted!,
+        tabBar: PersistentBottomNavBar(
+          navBarEssentials: NavBarEssentials(
+            selectedIndex: _controller!.index,
+            previousIndex: _previousIndex,
+            padding: widget.padding,
+            selectedScreenBuildContext: _contextList[_controller!.index],
+            itemAnimationProperties: widget.itemAnimationProperties,
+            items: widget.items,
+            backgroundColor: widget.backgroundColor,
+            navBarHeight: _navBarHeight,
+            popScreensOnTapOfSelectedTab:
+                widget.popAllScreensOnTapOfSelectedTab,
+            onItemSelected: (int index) {
+              if (_controller!.index != _previousIndex) {
+                _previousIndex = _controller!.index;
               }
-              if (_isCompleted != isCompleted) {
-                setState(() {
-                  _isCompleted = isCompleted;
-                });
+              if ((widget.popAllScreensOnTapOfSelectedTab) &&
+                  _previousIndex == index) {
+                popAllScreens();
               }
+              _controller!.index = index;
+              widget.onItemSelected?.call(index);
             },
           ),
-          tabBuilder: (BuildContext context, int index) {
-            return SafeArea(
-              top: false,
-              right: false,
-              left: false,
-              bottom: (widget.items != null &&
-                          widget.items![_controller!.index].opacity < 1.0) ||
-                      (widget.hideNavigationBar != null && _isCompleted!)
-                  ? false
-                  : widget.margin.bottom > 0
-                      ? false
-                      : widget.confineInSafeArea,
-              child: _buildScreen(index),
-            );
+          isCustomWidget: widget.isCustomWidget,
+          navBarDecoration: widget.decoration,
+          margin: widget.margin,
+          confineToSafeArea: widget.confineInSafeArea,
+          hideNavigationBar: widget.hideNavigationBar,
+          navBarStyle: widget.navBarStyle,
+          neumorphicProperties: widget.neumorphicProperties,
+          customNavBarWidget: widget.customWidget,
+          onAnimationComplete: (isAnimating, isCompleted) {
+            if (_isAnimating != isAnimating) {
+              setState(() {
+                _isAnimating = isAnimating;
+              });
+            }
+            if (_isCompleted != isCompleted) {
+              setState(() {
+                _isCompleted = isCompleted;
+              });
+            }
           },
-        );
+        ),
+        tabBuilder: (BuildContext context, int index) {
+          return SafeArea(
+            top: false,
+            right: false,
+            left: false,
+            bottom: (widget.items != null &&
+                        widget.items![_controller!.index].opacity < 1.0) ||
+                    (widget.hideNavigationBar != null && _isCompleted!)
+                ? false
+                : widget.margin.bottom > 0
+                    ? false
+                    : widget.confineInSafeArea,
+            child: _buildScreen(index),
+          );
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
