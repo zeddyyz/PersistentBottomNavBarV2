@@ -9,6 +9,7 @@ class NavBarEssentials {
   final double? navBarHeight;
   final NavBarPadding? padding;
   final bool? popScreensOnTapOfSelectedTab;
+  final bool? popAllScreensOnTapAnyTabs;
   final ItemAnimationProperties? itemAnimationProperties;
   final BuildContext? selectedScreenBuildContext;
 
@@ -21,6 +22,7 @@ class NavBarEssentials {
     this.navBarHeight = 0.0,
     this.padding,
     this.popScreensOnTapOfSelectedTab,
+    this.popAllScreensOnTapAnyTabs,
     this.itemAnimationProperties,
     this.selectedScreenBuildContext,
   });

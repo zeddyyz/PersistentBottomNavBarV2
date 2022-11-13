@@ -88,6 +88,7 @@ class PersistentTabView extends PersistentTabViewBase {
     this.selectedTabScreenContext,
     this.hideNavigationBarWhenKeyboardShows = true,
     bool popAllScreensOnTapOfSelectedTab = true,
+    bool popAllScreensOnTapAnyTabs = false,
     PopActionScreensType popActionScreens = PopActionScreensType.all,
     this.confineInSafeArea = true,
     this.onWillPop,
@@ -112,6 +113,7 @@ class PersistentTabView extends PersistentTabViewBase {
           navBarStyle: navBarStyle,
           popActionScreens: popActionScreens,
           popAllScreensOnTapOfSelectedTab: popAllScreensOnTapOfSelectedTab,
+          popAllScreensOnTapAnyTabs: popAllScreensOnTapAnyTabs,
           navBarHeight: navBarHeight,
           backgroundColor: backgroundColor,
           onItemSelected: onItemSelected,
@@ -278,6 +280,9 @@ class PersistentTabViewBase extends StatefulWidget {
   /// If an already selected tab is pressed/tapped again, all the screens pushed on that particular tab will pop until the first screen in the stack. Defaults to `true`.
   final bool popAllScreensOnTapOfSelectedTab;
 
+  /// All the screens pushed on that particular tab will pop until the first screen in the stack, whether the tab is already selected or not. Defaults to `false`.
+  final bool? popAllScreensOnTapAnyTabs;
+
   /// If set all pop until to first screen else set once pop once
   final PopActionScreensType? popActionScreens;
 
@@ -336,6 +341,7 @@ class PersistentTabViewBase extends StatefulWidget {
     this.customWidget,
     this.itemCount,
     this.popAllScreensOnTapOfSelectedTab = true,
+    this.popAllScreensOnTapAnyTabs,
     this.popActionScreens,
     this.onWillPop,
     this.hideNavigationBarWhenKeyboardShows,
@@ -625,12 +631,15 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             navBarHeight: _navBarHeight,
             popScreensOnTapOfSelectedTab:
                 widget.popAllScreensOnTapOfSelectedTab,
+            popAllScreensOnTapAnyTabs:
+                widget.popAllScreensOnTapAnyTabs ?? false,
             onItemSelected: (int index) {
               if (_controller!.index != _previousIndex) {
                 _previousIndex = _controller!.index;
               }
-              if ((widget.popAllScreensOnTapOfSelectedTab) &&
-                  _previousIndex == index) {
+              if (((widget.popAllScreensOnTapOfSelectedTab) &&
+                      _previousIndex == index) ||
+                  (widget.popAllScreensOnTapAnyTabs ?? false)) {
                 popAllScreens();
               }
               _controller!.index = index;
@@ -719,7 +728,8 @@ class _PersistentTabViewState extends State<PersistentTabView> {
   }
 
   void popAllScreens() {
-    if (widget.popAllScreensOnTapOfSelectedTab) {
+    if (widget.popAllScreensOnTapOfSelectedTab ||
+        widget.popAllScreensOnTapAnyTabs!) {
       if (widget.items![_controller!.index]
                   .onSelectedTabPressWhenNoScreensPushed !=
               null &&
