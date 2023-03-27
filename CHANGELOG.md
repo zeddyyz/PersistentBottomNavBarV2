@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [4.2.8] - 2023-03-27
 ### Fixed
 - Remove label padding in simple style
 - Check if context is non-null before popping all screens
@@ -451,7 +451,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Includes platform specific behavior as an option (specify it in the two navigator functions).
 - Based on flutter's Cupertino(iOS) bottom navigation bar.
 
-[Unreleased]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.7...HEAD
+[4.2.8]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.7...4.2.8
 [4.2.7]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.6...4.2.7
 [4.2.6]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.5...4.2.6
 [4.2.5]: https://github.com/jb3rndt/PersistentBottomNavBarV2/compare/4.2.4...4.2.5
