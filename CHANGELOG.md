@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 - Remove label padding in simple style
+- Check if context is non-null before popping all screens
 
 ## [4.2.7] - 2022-11-13
 ### Fixed

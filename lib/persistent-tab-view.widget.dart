@@ -728,8 +728,9 @@ class _PersistentTabViewState extends State<PersistentTabView> {
   }
 
   void popAllScreens() {
-    if (widget.popAllScreensOnTapOfSelectedTab ||
-        widget.popAllScreensOnTapAnyTabs!) {
+    if ((widget.popAllScreensOnTapOfSelectedTab ||
+            widget.popAllScreensOnTapAnyTabs!) &&
+        _contextList[_controller!.index] != null) {
       if (widget.items![_controller!.index]
                   .onSelectedTabPressWhenNoScreensPushed !=
               null &&
