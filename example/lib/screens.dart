@@ -8,8 +8,8 @@ class MainScreen extends StatelessWidget {
   final bool hideStatus;
 
   const MainScreen({
-    Key key,
-    this.onScreenHideButtonPressed,
+    Key? key,
+    required this.onScreenHideButtonPressed,
     this.hideStatus = false,
   }) : super(key: key);
 
@@ -149,7 +149,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class MainScreen2 extends StatelessWidget {
-  const MainScreen2({Key key}) : super(key: key);
+  const MainScreen2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +187,7 @@ class MainScreen2 extends StatelessWidget {
 }
 
 class MainScreen3 extends StatelessWidget {
-  const MainScreen3({Key key}) : super(key: key);
+  const MainScreen3({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

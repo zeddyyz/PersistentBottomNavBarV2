@@ -10,7 +10,7 @@ class InteractiveExample extends StatefulWidget {
 }
 
 class _InteractiveExampleState extends State<InteractiveExample> {
-  PersistentTabController _controller;
+  late PersistentTabController _controller;
   bool _hideNavBar = false;
   NavBarStyle _navBarStyle = NavBarStyle.style15;
   bool _hideNavigationBarWhenKeyboardShows = true;
@@ -107,7 +107,7 @@ class _InteractiveExampleState extends State<InteractiveExample> {
             },
           ),
           onPressed: (context) {
-            pushDynamicScreen(context,
+            pushDynamicScreen(context!,
                 screen: SampleModalScreen(), withNavBar: true);
           }),
       PersistentBottomNavBarItem(
@@ -174,9 +174,9 @@ class _InteractiveExampleState extends State<InteractiveExample> {
                       height: 2,
                       color: Colors.deepPurpleAccent,
                     ),
-                    onChanged: (NavBarStyle newStyle) {
+                    onChanged: (NavBarStyle? newStyle) {
                       setState(() {
-                        _navBarStyle = newStyle;
+                        _navBarStyle = newStyle!;
                       });
                     },
                     items: NavBarStyle.values
@@ -295,7 +295,7 @@ class _InteractiveExampleState extends State<InteractiveExample> {
         bottomScreenMargin: 0.0,
         onWillPop: (context) async {
           await showDialog(
-            context: context,
+            context: context!,
             useSafeArea: true,
             builder: (context) => Container(
               height: 50.0,
